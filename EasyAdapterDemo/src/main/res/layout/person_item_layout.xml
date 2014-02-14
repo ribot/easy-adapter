@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view_person"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/text_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_view_person"
+        android:padding="5dp"
+        android:textSize="20sp"
+        android:text="Home Simpson"/>
+
+    <TextView
+        android:id="@+id/text_view_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image_view_person"
+        android:layout_below="@id/text_view_name"
+        android:layout_marginLeft="5dp"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:text="07898777656"/>
+
+
+</RelativeLayout>
