@@ -20,7 +20,7 @@ Examples
 
 ### ListView with EasyAdapter
 
-This example shows how to implent a `ListView` that displays people's data. Every item on the list is a person with an image, name and phone number. The item's layout is `person_item_layout.xml` and it contains an `ImageView` and two `TextViews`. The `Person` class contains data about a person. 
+This example shows how to implent a `ListView` that displays a list of people. Every item on the list is a person with an image, name and phone number. The item's layout is `person_item_layout.xml` and it contains an `ImageView` and two `TextViews`. The `Person` class contains data about a person. 
 
 #### 1. Extend ItemViewHolder 
 
