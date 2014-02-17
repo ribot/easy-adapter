@@ -1,1 +1,1 @@
-include ':easyadapter', ':app', ':EasyAdapterDemo', 'EasyAdapterDemoooooo'
+include ':easyadapter', ':EasyAdapterDemo'
