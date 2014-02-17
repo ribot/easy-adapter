@@ -110,11 +110,11 @@ Build with Gradle
 --------------
 ##### The demo app 
 ```
-./gradlew :easyadapterdemo:assembleDebug
+./gradlew :easyadapterdemo:assemble
 ```
 ##### The library 
 ```
-./gradlew :easyadapter:assembleDebug
+./gradlew :easyadapter:assemble
 ```
 
 
