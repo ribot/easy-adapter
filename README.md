@@ -134,3 +134,5 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/366471d9e26ed25255af3ad9da17dfce "githalytics.com")](http://githalytics.com/ribot/EasyAdapter)
