@@ -10,10 +10,25 @@ Using `AdapterViews` has never been so easy. Inspired by the [view holder](http:
 
 EasyAdapter supports Android 2.1 and above.
 
-Downloads
+Setup
 --------------
+#### 1. Gradle
+```java
+dependencies {
+    compile 'uk.co.ribot:easyadapter:1.0.0'
+}
+```
+#### 2. Maven
+```xml
+<dependency>
+    <groupId>uk.co.ribot</groupId>
+    <artifactId>easyadapter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+#### 3. Manual
 
-* __[EasyAdapter v1.0](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-v1.0.jar)__ -- [Reference](https://rawgithub.com/ribot/EasyAdapter/master/easyadapter/docs/v1.0/index.html)
+Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-v1.0.jar)__
 
 Examples
 --------------
