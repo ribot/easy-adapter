@@ -128,7 +128,7 @@ public class EasyAdapter<T> extends BaseAdapter {
 
         T item = getItem(position);
         holder.setItem(item);
-        PositionInfo positionInfo = new PositionInfo(position, isFist(position), isLast(position));
+        PositionInfo positionInfo = new PositionInfo(position, isFirst(position), isLast(position));
         holder.onSetValues(item, positionInfo);
         holder.onSetListeners(item, positionInfo);
 
@@ -177,7 +177,7 @@ public class EasyAdapter<T> extends BaseAdapter {
         return position == mListItems.size() - 1;
     }
 
-    private boolean isFist(int position) {
+    private boolean isFirst(int position) {
         return position == 0;
     }
 
