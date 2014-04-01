@@ -10,14 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-        }
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    compile 'uk.co.ribot:easyadapter:1.0.0'
 }
