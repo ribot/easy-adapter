@@ -13,7 +13,7 @@ EasyAdapter supports Android 2.1 and above.
 Setup
 --------------
 #### 1. Gradle
-```java
+```groovy
 dependencies {
     compile 'uk.co.ribot:easyadapter:1.0.0'
 }
@@ -125,7 +125,7 @@ Build with Gradle
 --------------
 ##### The demo app
 ```
-./gradlew :easyadapterdemo:assemble
+./gradlew :easyadapterdemo:installDebug
 ```
 ##### The library
 ```
