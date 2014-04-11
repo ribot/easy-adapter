@@ -2,7 +2,7 @@ apply plugin: 'android-library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = "1.0.0"
+version = "1.0.1"
 group = "uk.co.ribot"
 
 dependencies {
@@ -16,8 +16,6 @@ android {
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 19
-        versionCode 1
-        versionName project.version
     }
 }
 
@@ -52,11 +50,11 @@ signing {
     sign configurations.archives
 }
 
-
+//Generates JAR file when building
 android.libraryVariants.all { variant ->
     def name = variant.buildType.name
     if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
-        return; // Skip debug builds.
+        return;
     }
     def task = project.tasks.create "jar${name.capitalize()}", Jar
     task.dependsOn variant.javaCompile
@@ -69,7 +67,7 @@ uploadArchives {
     repositories.mavenDeployer {
         beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        repository(url: sonatypeRepoStaging) {
+        repository(url: sonotypeRepoSnapshots) {
             authentication(userName: sonatypeUsername, password: sonatypePassword)
         }
 

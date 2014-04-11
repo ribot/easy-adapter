@@ -15,6 +15,7 @@
  */
 package uk.co.ribot.easyadapter;
 
+import android.content.Context;
 import android.view.View;
 
 import uk.co.ribot.easyadapter.annotations.FieldAnnotationParser;
@@ -41,6 +42,15 @@ public abstract class ViewHolder {
      */
     public View getView() {
         return mView;
+    }
+
+    /**
+     * Returns the context the held view is running in so it can be used to access resources, etc.
+     *
+     * @return the context the held view is running in.
+     */
+    public Context getContext() {
+        return mView.getContext();
     }
 
 }
