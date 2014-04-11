@@ -14,3 +14,13 @@ allprojects {
         mavenCentral()
     }
 }
+
+
+task copyLibToDemoApp(type: Copy) {
+    description = "Copy the latest aar to the demo app"
+    from "easyadapter/build/libs"
+    include "*.jar"
+    exclude "*javadoc.jar"
+    exclude "*sources.jar"
+    into "EasyAdapterDemo/libs"
+}
