@@ -65,7 +65,7 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
         imageViewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getString(R.string.my_name_string, item.getName()), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getContext().getString(R.string.my_name_string, item.getName()), Toast.LENGTH_LONG).show();
             }
         });
     }

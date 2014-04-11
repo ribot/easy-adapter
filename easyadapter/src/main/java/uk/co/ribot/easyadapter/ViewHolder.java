@@ -53,36 +53,4 @@ public abstract class ViewHolder {
         return mView.getContext();
     }
 
-    /**
-     * Return a localized string from the application's package's
-     * default string table.
-     *
-     * @param resourceId Resource id for the string
-     * @return the string from resources or an empty string if the context where the view is running in is null
-     */
-    public String getString(int resourceId) {
-        Context context = getContext();
-        if (context != null) {
-            return context.getString(resourceId);
-        }
-        return "";
-    }
-
-    /**
-     * Return a localized formatted string from the application's package's
-     * default string table, substituting the format arguments as defined in
-     * {@link java.util.Formatter} and {@link java.lang.String#format}.
-     *
-     * @param resourceId Resource id for the format string
-     * @param formatArgs The format arguments that will be used for substitution.
-     * @return the string from resources or an empty string if the context where the view is running in is null
-     */
-    public String getString(int resourceId, Object... formatArgs) {
-        Context context = getContext();
-        if (context != null) {
-            return context.getString(resourceId, formatArgs);
-        }
-        return "";
-    }
-
 }
