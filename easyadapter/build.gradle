@@ -62,7 +62,16 @@ android.libraryVariants.all { variant ->
     artifacts.add('archives', task);
 }
 
+//Publishing config for Sonatype central
 def sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+def sonatypeUsername = ""
+def sonatypePassword = ""
+try {
+    sonatypeUsername = sonatypeUsernameLocal
+    sonatypePassword = sonatypePasswordLocal
+} catch (MissingPropertyException) {
+    println "Note: Sonatype credentials not found in your local properties"
+}
 
 uploadArchives {
     configuration = configurations.archives
