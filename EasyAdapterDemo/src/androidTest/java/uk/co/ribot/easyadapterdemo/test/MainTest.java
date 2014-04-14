@@ -48,6 +48,6 @@ public class MainTest extends BaseTestCase<MainActivity> {
     public void testClickOnImage() {
         List<Person> listPeople = DataProvider.getListPeople();
         solo.clickOnImage(0);
-        assertTrue(solo.waitForText(getActivity().getString(R.string.my_name_string, listPeople.get(0).getName())));
+        assertTrue(solo.waitForText("InvalidTextToMakeTestFail"));
     }
 }
