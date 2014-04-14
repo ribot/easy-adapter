@@ -19,4 +19,6 @@ dependencies {
     compile project(":easyadapter")
 
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
+
+    //Change to tests Travis CI
 }
