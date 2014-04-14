@@ -5,13 +5,18 @@ android {
     buildToolsVersion "19.0.3"
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 19
         versionCode 2
         versionName "1.1"
+        packageName "uk.co.ribot.easyadapterdemo"
+        testPackageName "uk.co.ribot.easyadapterdemo.test"
+        testInstrumentationRunner "uk.co.ribot.easyadapterdemo.test.InstrumentationTestRunner"
     }
 }
 
 dependencies {
     compile project(":easyadapter")
+
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
 }
