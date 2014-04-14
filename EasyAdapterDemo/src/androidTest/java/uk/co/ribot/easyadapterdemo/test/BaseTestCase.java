@@ -43,6 +43,4 @@ public abstract class BaseTestCase<T extends Activity> extends ActivityInstrumen
 
         super.tearDown();
     }
-
 }
-
