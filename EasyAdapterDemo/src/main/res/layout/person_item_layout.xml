@@ -4,9 +4,8 @@
 
     <ImageView
         android:id="@+id/image_view_person"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="5dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -14,9 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_view_person"
-        android:padding="5dp"
-        android:textSize="20sp"
-        android:text="Home Simpson" />
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/text_view_phone"
@@ -24,10 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_view_person"
         android:layout_below="@id/text_view_name"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:textSize="16sp"
-        android:textColor="@android:color/holo_blue_dark"
-        android:text="07898777656" />
-
+        android:textColor="#0099cc" />
 
 </RelativeLayout>

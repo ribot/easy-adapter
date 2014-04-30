@@ -27,20 +27,20 @@ public class DataProvider {
     //Returns a mock List of Person objects
     public static List<Person> getListPeople() {
         List<Person> listPeople = new ArrayList<Person>();
-        listPeople.add(new Person("Ivan Carballo", "07123456789", R.drawable.homer1));
-        listPeople.add(new Person("Antony Ribot", "07123456789", R.drawable.homer2));
-        listPeople.add(new Person("Jerome Ribot", "07123456789", R.drawable.homer3));
-        listPeople.add(new Person("Ben Breckler", "07123456789", R.drawable.homer1));
-        listPeople.add(new Person("Lindsay Scott", "07123456789", R.drawable.homer2));
-        listPeople.add(new Person("Matt Oakes", "07123456789", R.drawable.homer3));
-        listPeople.add(new Person("Olly Thomas", "07123456789", R.drawable.homer1));
-        listPeople.add(new Person("Rob Douglas", "07123456789", R.drawable.homer2));
-        listPeople.add(new Person("Tara Etherington", "07123456789", R.drawable.homer3));
-        listPeople.add(new Person("Trevor May", "07123456789", R.drawable.homer1));
-        listPeople.add(new Person("Jason Fry", "07123456789", R.drawable.homer2));
-        listPeople.add(new Person("Manuel Marcos", "07123456789", R.drawable.homer3));
-        listPeople.add(new Person("Stefan Person", "07123456789", R.drawable.homer1));
-        listPeople.add(new Person("Joe Birch", "07123456789", R.drawable.homer2));
+        listPeople.add(new Person("Henry Blair", "07123456789", R.drawable.male1));
+        listPeople.add(new Person("Jenny Curtis", "07123456789", R.drawable.female1));
+        listPeople.add(new Person("Vincent Green", "07123456789", R.drawable.male2));
+        listPeople.add(new Person("Ada Underwood", "07123456789", R.drawable.female2));
+        listPeople.add(new Person("Daniel Erickson", "07123456789", R.drawable.male3));
+        listPeople.add(new Person("Maria Ramsey", "07123456789", R.drawable.female3));
+        listPeople.add(new Person("Rosemary Munoz", "07123456789", R.drawable.female4));
+        listPeople.add(new Person("John Singleton", "07123456789", R.drawable.male4));
+        listPeople.add(new Person("Lorena Bowen", "07123456789", R.drawable.female5));
+        listPeople.add(new Person("Kevin Stokes", "07123456789", R.drawable.male5));
+        listPeople.add(new Person("Johnny Sanders", "07123456789", R.drawable.male6));
+        listPeople.add(new Person("Jim Ramirez", "07123456789", R.drawable.male7));
+        listPeople.add(new Person("Cassandra Hunter", "07123456789", R.drawable.female6));
+        listPeople.add(new Person("Viola Guerrero", "07123456789", R.drawable.female7));
         return listPeople;
     }
 }
