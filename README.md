@@ -69,6 +69,8 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
     }
 }
 ```
+If you define the `ViewHolder` as an inner class, it must be `static` so that the `EasyAdapter` can instantiate it.
+
 #### 2. Create the EasyAdapter and add it to your ListView
 
 ```java
