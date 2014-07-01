@@ -15,4 +15,4 @@ before_install:
 before_script:
   - wait_for_emulator
 
-script: ./gradlew easyadapterdemo:connectedCheck
+script: ./gradlew demo:connectedCheck
