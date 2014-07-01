@@ -1,3 +1,5 @@
+import com.android.builder.core.BuilderConstants
+
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
@@ -50,17 +52,17 @@ signing {
     sign configurations.archives
 }
 
-//Generates JAR file when building
-/*android.libraryVariants.all { variant ->
+//Generates JAR file when building (In addition to
+android.libraryVariants.all { variant ->
     def name = variant.buildType.name
-    if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+    if (name.equals(BuilderConstants.DEBUG)) {
         return;
     }
     def task = project.tasks.create "jar${name.capitalize()}", Jar
     task.dependsOn variant.javaCompile
     task.from variant.javaCompile.destinationDir
     artifacts.add('archives', task);
-}*/
+}
 
 //Publishing config for Sonatype central
 def sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
