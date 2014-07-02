@@ -61,11 +61,15 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
 
     //Optionally override onSetListeners to add listeners to the views.
     @Override
-    public void onSetListeners(final Person item, PositionInfo positionInfo) {
+    public void onSetListeners() {
         imageViewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getContext().getString(R.string.my_name_string, item.getName()), Toast.LENGTH_LONG).show();
+                //To access the item data object from inside listeners, call getItem()
+                Person person = getItem();
+                if (person != null) {
+                    Toast.makeText(getContext(), getContext().getString(R.string.my_name_string, person.getName()), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
