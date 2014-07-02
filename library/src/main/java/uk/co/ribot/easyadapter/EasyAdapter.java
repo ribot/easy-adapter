@@ -21,17 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.co.ribot.easyadapter.EasyAdapterUtil;
-import uk.co.ribot.easyadapter.InvalidViewHolderException;
-import uk.co.ribot.easyadapter.ItemViewHolder;
-import uk.co.ribot.easyadapter.LayoutIdMissingException;
-import uk.co.ribot.easyadapter.PositionInfo;
-import uk.co.ribot.easyadapter.annotations.ClassAnnotationParser;
 
 /**
  * Extension of BaseAdapter. Don't worry about implementing your own Adapter, the EasyAdapter will <b>do the tedious work for you.</b>
