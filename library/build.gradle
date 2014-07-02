@@ -1,14 +1,27 @@
 import com.android.builder.core.BuilderConstants
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.10.+'
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'android-test'
 
 version = "1.1.0"
 group = "uk.co.ribot"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'org.robolectric:robolectric:2.3'
 }
 
 android {
