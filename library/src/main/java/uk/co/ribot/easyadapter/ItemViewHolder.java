@@ -18,7 +18,7 @@ package uk.co.ribot.easyadapter;
 import android.view.View;
 
 /**
- * Easier alternative to implementing your own {@link android.widget.BaseAdapter}. Extend this class as it's explained below and then use {@link EasyAdapter}
+ * Easier alternative to implementing your own {@link android.widget.BaseAdapter}. Extend this class as it's explained below and then use {@link android.widget.AdapterView}
  * to link it to your {@link android.widget.AdapterView} </p>
  * <ol>
  *     <li>Annotate the subclass using {@link uk.co.ribot.easyadapter.annotations.LayoutId}, i.e @LayoutId(R.id.item_layout). It will link the ItemViewHolder to the item's layout.</li>
@@ -79,8 +79,8 @@ public abstract class ItemViewHolder<T> extends ViewHolder {
 
     /**
      * Implement this method to add listeners to the views. This method is only called once when
-     * the Adapter is created. Note, that at this point calling {@link #getItem()} will return null, however
-     * you can still call {@link #getItem()} from inside the listeners implementation.
+     * the Adapter is created. Note that at this point calling {@link #getItem()} will return null, however
+     * you can still call {@link #getItem()} from inside your listener object implementation, e.g from inside onClick().
      */
     public void onSetListeners() {
     }
