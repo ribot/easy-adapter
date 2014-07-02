@@ -1,4 +1,6 @@
-apply plugin: 'android-library'
+import com.android.builder.core.BuilderConstants
+
+apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
@@ -11,7 +13,7 @@ dependencies {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 7
@@ -21,7 +23,7 @@ android {
 
 task androidJavadocs(type: Javadoc) {
     options.links("http://docs.oracle.com/javase/7/docs/api/");
-    source = android.sourceSets.main.allJava
+    source = android.sourceSets.main.java.sourceFiles
 }
 
 task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
@@ -31,7 +33,7 @@ task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
 
 task androidSourcesJar(type: Jar) {
     classifier = 'sources'
-    from android.sourceSets.main.allSource
+    from android.sourceSets.main.java.sourceFiles
 }
 
 artifacts {
@@ -50,10 +52,10 @@ signing {
     sign configurations.archives
 }
 
-//Generates JAR file when building
+//Generates JAR file when building (In addition to
 android.libraryVariants.all { variant ->
     def name = variant.buildType.name
-    if (name.equals(com.android.builder.BuilderConstants.DEBUG)) {
+    if (name.equals(BuilderConstants.DEBUG)) {
         return;
     }
     def task = project.tasks.create "jar${name.capitalize()}", Jar

@@ -1,22 +1,22 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 19
         versionCode 2
         versionName "1.1"
-        packageName "uk.co.ribot.easyadapterdemo"
-        testPackageName "uk.co.ribot.easyadapterdemo.test"
+        applicationId "uk.co.ribot.easyadapterdemo"
+        testApplicationId "uk.co.ribot.easyadapterdemo.test"
         testInstrumentationRunner "uk.co.ribot.easyadapterdemo.test.InstrumentationTestRunner"
     }
 }
 
 dependencies {
-    compile project(":easyadapter")
+    compile project(":library")
 
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
 }

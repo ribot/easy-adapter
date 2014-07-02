@@ -127,11 +127,11 @@ Build with Gradle
 --------------
 ##### The demo app
 ```
-./gradlew :easyadapterdemo:installDebug
+./gradlew :demo:installDebug
 ```
 ##### The library
 ```
-./gradlew :easyadapter:build
+./gradlew :library:build
 ```
 
 

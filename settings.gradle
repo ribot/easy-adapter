@@ -1,1 +1,1 @@
-include ':easyadapter', ':EasyAdapterDemo'
+include ':library', ':demo'
