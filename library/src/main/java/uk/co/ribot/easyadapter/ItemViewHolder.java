@@ -15,16 +15,17 @@
  */
 package uk.co.ribot.easyadapter;
 
+import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
- * Easier alternative to implementing your own {@link android.widget.BaseAdapter}. Extend this class as it's explained below and then use {@link uk.co.ribot.easyadapter.EasyAdapter}
+ * Easier alternative to implementing your own {@link android.widget.BaseAdapter}. Extend this class as it's explained below and then use {@link EasyAdapter}
  * to link it to your {@link android.widget.AdapterView} </p>
  * <ol>
  *     <li>Annotate the subclass using {@link uk.co.ribot.easyadapter.annotations.LayoutId}, i.e @LayoutId(R.id.item_layout). It will link the ItemViewHolder to the item's layout.</li>
  *     <li>Annotate the view fields with {@link uk.co.ribot.easyadapter.annotations.ViewId}, i.e @ViewId(R.id.textView1). It will look for the viewId's in the item's layout and will assign the views to the annotated fields of the subclass.</li>
  *     <li>Implement {@link #onSetValues(Object, PositionInfo)} and populate the views using the data in the item object</li>
- *     <li>Optionally, implement {@link #onSetListeners(Object, PositionInfo)} to add listeners to the views.</li>
+ *     <li>Optionally, implement {@link #onSetListeners()} to add listeners to the views.</li>
  * </ol>
  */
 public abstract class ItemViewHolder<T> extends ViewHolder {
@@ -56,6 +57,7 @@ public abstract class ItemViewHolder<T> extends ViewHolder {
      *
      * @return the data item that is used to populate the held views.
      */
+    @Nullable
     public T getItem() {
         return mItem;
     }
@@ -78,12 +80,11 @@ public abstract class ItemViewHolder<T> extends ViewHolder {
     public abstract void onSetValues(T item, PositionInfo positionInfo);
 
     /**
-     * Implement this method to add listeners to the views
-     *
-     * @param item         the data item that is used to populate the held views.
-     * @param positionInfo information about the position of the item on the list.
+     * Implement this method to add listeners to the views. This method is only called once when
+     * the Adapter is created. Note, that at this point calling {@link #getItem()} will return null, however
+     * you can still call {@link #getItem()} from inside the listeners implementation.
      */
-    public void onSetListeners(T item, PositionInfo positionInfo) {
+    public void onSetListeners() {
     }
 
 }
