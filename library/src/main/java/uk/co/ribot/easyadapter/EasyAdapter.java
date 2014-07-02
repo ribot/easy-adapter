@@ -21,12 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.co.ribot.easyadapter.annotations.ClassAnnotationParser;
 
 /**
  * Extension of BaseAdapter. Don't worry about implementing your own Adapter, the EasyAdapter will <b>do the tedious work for you.</b>
@@ -37,7 +33,7 @@ import uk.co.ribot.easyadapter.annotations.ClassAnnotationParser;
 public class EasyAdapter<T> extends BaseAdapter {
 
     private List<T> mListItems;
-    private Class mItemViewHolderClass;
+    private Class<? extends ItemViewHolder> mItemViewHolderClass;
     private LayoutInflater mInflater;
     private Integer mItemLayoutId;
 
@@ -48,11 +44,9 @@ public class EasyAdapter<T> extends BaseAdapter {
      * @param itemViewHolderClass your {@link uk.co.ribot.easyadapter.ItemViewHolder} implementation class
      * @param listItems           the list of items to load in the Adapter
      */
-    public EasyAdapter(Context context, Class itemViewHolderClass, List<T> listItems) {
+    public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, List<T> listItems) {
         setItems(listItems);
-        setItemViewHolderClass(itemViewHolderClass);
-        setLayoutInflater(context);
-        setItemLayoutId(itemViewHolderClass);
+        init(context, itemViewHolderClass);
     }
 
     /**
@@ -61,11 +55,15 @@ public class EasyAdapter<T> extends BaseAdapter {
      * @param context             a valid Context
      * @param itemViewHolderClass your {@link uk.co.ribot.easyadapter.ItemViewHolder} implementation class
      */
-    public EasyAdapter(Context context, Class itemViewHolderClass) {
+    public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
         mListItems = new ArrayList<T>();
-        setItemViewHolderClass(itemViewHolderClass);
-        setLayoutInflater(context);
-        setItemLayoutId(itemViewHolderClass);
+        init(context, itemViewHolderClass);
+    }
+
+    private void init(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
+        mItemViewHolderClass = itemViewHolderClass;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mItemLayoutId = EasyAdapterUtil.parseItemLayoutId(itemViewHolderClass);
     }
 
     /**
@@ -118,7 +116,8 @@ public class EasyAdapter<T> extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(mItemLayoutId, parent, false);
             //Create a new view holder using reflection
-            holder = createViewHolder(convertView);
+            holder = EasyAdapterUtil.createViewHolder(convertView, mItemViewHolderClass);
+            holder.onSetListeners();
             if (convertView != null)
                 convertView.setTag(holder);
         } else {
@@ -128,57 +127,11 @@ public class EasyAdapter<T> extends BaseAdapter {
 
         T item = getItem(position);
         holder.setItem(item);
-        PositionInfo positionInfo = new PositionInfo(position, isFirst(position), isLast(position));
+        PositionInfo positionInfo = new PositionInfo(position, EasyAdapterUtil.isFirst(position), EasyAdapterUtil.isLast(position, mListItems));
         holder.onSetValues(item, positionInfo);
-        holder.onSetListeners(item, positionInfo);
+
 
         return convertView;
-    }
-
-    private void setLayoutInflater(Context context) {
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    //Checks that the itemViewHolderClass is a valid implementation of ItemViewHolder
-    //If not will throw InvalidViewHolderException.
-    private void setItemViewHolderClass(Class itemViewHolderClass) {
-        if (ItemViewHolder.class.isAssignableFrom(itemViewHolderClass)) {
-            mItemViewHolderClass = itemViewHolderClass;
-        } else {
-            throw new InvalidViewHolderException();
-        }
-    }
-
-    //Parses the layout ID annotation form the itemViewHolderClass
-    private void setItemLayoutId(Class itemViewHolderClass) {
-        mItemLayoutId = ClassAnnotationParser.getLayoutId(mItemViewHolderClass);
-        if (mItemLayoutId == null) {
-            throw new LayoutIdMissingException();
-        }
-    }
-
-    //Create a new ItemViewHolder using Java reflection
-    private ItemViewHolder createViewHolder(View view) {
-        try {
-            Constructor<ItemViewHolder> constructor = mItemViewHolderClass.getConstructor(View.class);
-            return constructor.newInstance(view);
-        } catch (IllegalAccessException e) {
-            throw new InvalidViewHolderException();
-        } catch (NoSuchMethodException e) {
-            throw new InvalidViewHolderException();
-        } catch (InvocationTargetException e) {
-            throw new InvalidViewHolderException();
-        } catch (InstantiationException e) {
-            throw new InvalidViewHolderException();
-        }
-    }
-
-    private boolean isLast(int position) {
-        return position == mListItems.size() - 1;
-    }
-
-    private boolean isFirst(int position) {
-        return position == 0;
     }
 
 }
