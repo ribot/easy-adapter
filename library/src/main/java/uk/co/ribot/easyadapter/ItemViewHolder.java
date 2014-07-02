@@ -15,7 +15,6 @@
  */
 package uk.co.ribot.easyadapter;
 
-import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
@@ -57,7 +56,6 @@ public abstract class ItemViewHolder<T> extends ViewHolder {
      *
      * @return the data item that is used to populate the held views.
      */
-    @Nullable
     public T getItem() {
         return mItem;
     }
