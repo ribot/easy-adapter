@@ -86,6 +86,7 @@ uploadArchives {
 
         pom.project {
             name 'Android Easy Adapter'
+            artifactId 'easyadapter'
             packaging 'aar'
             description 'Library that facilitates the use of AdapterViews on Android'
             url 'https://github.com/ribot/easy-adapter'
