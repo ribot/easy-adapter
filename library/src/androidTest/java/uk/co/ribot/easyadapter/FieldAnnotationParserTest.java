@@ -1,7 +1,9 @@
 package uk.co.ribot.easyadapter;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.os.Build;
+import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,12 +34,16 @@ public class FieldAnnotationParserTest {
         Assert.assertNotNull(testObject.imageView);
     }
 
-/*    @Test public void testSetViewFieldsActivity() throws Exception {
-
-    }*/
+    @Test public void testSetViewFieldsActivity() throws Exception {
+        Activity testActivity = Robolectric.buildActivity(TestActivity.class).create().get();
+        TestObjectWithAnnotations testObject = new TestObjectWithAnnotations();;
+        FieldAnnotationParser.setViewFields(testObject, testActivity);
+        Assert.assertNotNull(testObject.textView);
+        Assert.assertNotNull(testObject.imageView);
+    }
 
     @SuppressWarnings("ResourceType") //Because of warning when setting a hardcoded ID into the view
-    private LinearLayout createTestLinearLayout() {
+    private static LinearLayout createTestLinearLayout() {
         LinearLayout linearLayout = new LinearLayout(Robolectric.application);
         TextView textView = new TextView(Robolectric.application);
         textView.setId(TEXT_VIEW_ID);
@@ -55,5 +61,13 @@ public class FieldAnnotationParserTest {
         @ViewId(IMAGE_VIEW_ID)
         ImageView imageView;
 
+    }
+
+    static class TestActivity extends Activity {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(createTestLinearLayout());
+        }
     }
 }
