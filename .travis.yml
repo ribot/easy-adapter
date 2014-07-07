@@ -17,6 +17,7 @@ before_install:
     - uname -a
 
 before_script:
+    # wait for emulator 
     - wait_for_emulator
 
 script: ./gradlew clean demo:connectedCheck
