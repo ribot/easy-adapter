@@ -13,4 +13,4 @@ before_install:
     - uname -a
 before_script:
   - ./wait_for_emulator
-script: ./gradlew clean demo:connectedCheck
+script: ./gradlew clean library:test demo:connectedCheck
