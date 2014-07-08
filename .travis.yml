@@ -2,6 +2,8 @@ language: android
 android:
     components:
         - build-tools-19.1.0
+    licenses:
+        - android-sdk-license-5be876d5
 before_install:
     # Create and start emulator
     - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
