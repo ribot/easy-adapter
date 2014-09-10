@@ -16,26 +16,19 @@
 package uk.co.ribot.easyadapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extension of BaseAdapter. Don't worry about implementing your own Adapter, the EasyAdapter will <b>do the tedious work for you.</b>
- * You just have to implement an {@link uk.co.ribot.easyadapter.ItemViewHolder} and pass it into the constructor of this class.
- * </p>
- * It implements the <a href="http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder">"view holder"</a> design pattern so your ListView will scroll smoothly.
+ * Extension of BaseEasyAdapter that uses a List as data structure and provide methods to set a new list of items or add them to the existing List.
+ * Don't worry about implementing your own Adapter, the EasyAdapter will <b>do the tedious work for you.</b>
+ * You only have to implement an {@link uk.co.ribot.easyadapter.ItemViewHolder} and pass it into the constructor of this class.
+ * @param <T> Data type for items
  */
-public class EasyAdapter<T> extends BaseAdapter {
+public class EasyAdapter<T> extends BaseEasyAdapter<T> {
 
     private List<T> mListItems;
-    private Class<? extends ItemViewHolder> mItemViewHolderClass;
-    private LayoutInflater mInflater;
-    private Integer mItemLayoutId;
 
     /**
      * Constructs and EasyAdapter with a Context, an {@link uk.co.ribot.easyadapter.ItemViewHolder} class, and list of items.
@@ -45,8 +38,8 @@ public class EasyAdapter<T> extends BaseAdapter {
      * @param listItems           the list of items to load in the Adapter
      */
     public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, List<T> listItems) {
+        super(context, itemViewHolderClass);
         setItems(listItems);
-        init(context, itemViewHolderClass);
     }
 
     /**
@@ -56,14 +49,8 @@ public class EasyAdapter<T> extends BaseAdapter {
      * @param itemViewHolderClass your {@link uk.co.ribot.easyadapter.ItemViewHolder} implementation class
      */
     public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
+        super(context, itemViewHolderClass);
         mListItems = new ArrayList<T>();
-        init(context, itemViewHolderClass);
-    }
-
-    private void init(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
-        mItemViewHolderClass = itemViewHolderClass;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mItemLayoutId = EasyAdapterUtil.parseItemLayoutId(itemViewHolderClass);
     }
 
     /**
@@ -93,6 +80,7 @@ public class EasyAdapter<T> extends BaseAdapter {
      */
     public void addItems(List<T> listItems) {
         mListItems.addAll(listItems);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -108,30 +96,6 @@ public class EasyAdapter<T> extends BaseAdapter {
     @Override
     public T getItem(int position) {
         return mListItems.get(position);
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ItemViewHolder<T> holder;
-        if (convertView == null) {
-            convertView = mInflater.inflate(mItemLayoutId, parent, false);
-            //Create a new view holder using reflection
-            holder = EasyAdapterUtil.createViewHolder(convertView, mItemViewHolderClass);
-            holder.onSetListeners();
-            if (convertView != null)
-                convertView.setTag(holder);
-        } else {
-            //Reuse the view holder
-            holder = (ItemViewHolder) convertView.getTag();
-        }
-
-        T item = getItem(position);
-        holder.setItem(item);
-        PositionInfo positionInfo = new PositionInfo(position, EasyAdapterUtil.isFirst(position), EasyAdapterUtil.isLast(position, mListItems));
-        holder.onSetValues(item, positionInfo);
-
-
-        return convertView;
     }
 
 }
