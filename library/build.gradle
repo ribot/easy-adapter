@@ -14,7 +14,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'android-test'
 
-version = "1.1.0"
+version = "1.2.0"
 group = "uk.co.ribot"
 
 dependencies {
