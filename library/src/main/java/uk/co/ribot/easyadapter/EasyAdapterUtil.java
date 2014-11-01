@@ -35,12 +35,4 @@ class EasyAdapterUtil {
         return itemLayoutId;
     }
 
-    public static boolean isLast(int position, List listItems) {
-        return position == listItems.size() - 1;
-    }
-
-    public static boolean isFirst(int position) {
-        return position == 0;
-    }
-
 }
