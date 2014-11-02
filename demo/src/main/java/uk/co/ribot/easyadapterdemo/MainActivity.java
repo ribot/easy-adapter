@@ -15,30 +15,98 @@
  */
 package uk.co.ribot.easyadapterdemo;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 
-import uk.co.ribot.easyadapter.EasyAdapter;
+/**
+ * Please go to {@link ListViewFragment} to see an example of using EasyAdapter with a ListView
+ * or {@link RecyclerViewFragment} for an example with a RecyclerView.
+ *
+ * This class only has boilerplate code to set up the the tabs and the ViewPager.
+ */
+public class MainActivity extends ActionBarActivity {
 
-public class MainActivity extends Activity {
-
-    ListView mListView;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        mListView = (ListView) findViewById(R.id.list_view);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(new MyPageAdapter(getSupportFragmentManager()));
+        mViewPager.setOnPageChangeListener(mPageChangeListener);
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar!= null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            actionBar.addTab(actionBar
+                    .newTab()
+                    .setText(getString(R.string.tab_1_name))
+                    .setTabListener(mTabListener));
+            actionBar.addTab(actionBar
+                    .newTab()
+                    .setText(getString(R.string.tab_2_name))
+                    .setTabListener(mTabListener));
+        }
+    }
 
-        /*
-          Simply create an EasyAdapter by passing a Context, your ItemViewHolder class and the list of items.
-          Alternatively, you can create an EasyAdapter only with a Context and an ItemViewHolder class and set
-          the list of items later.
-         */
-        mListView.setAdapter(new EasyAdapter<Person>(this, PersonViewHolder.class, DataProvider.getListPeople()));
+    // Create a tab listener that is called when the user changes tabs.
+    private ActionBar.TabListener mTabListener = new ActionBar.TabListener() {
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            mViewPager.setCurrentItem(tab.getPosition());
+        }
 
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+    };
+
+    private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
+
+    private class MyPageAdapter extends FragmentPagerAdapter {
+        private MyPageAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (position == 1) {
+                return new RecyclerViewFragment();
+            }
+            return new ListViewFragment();
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
 
     }
 

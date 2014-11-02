@@ -16,12 +16,9 @@
 package uk.co.ribot.easyadapterdemo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-
-/**
- * Created by ivan on 14/02/2014.
- */
 public class DataProvider {
 
     //Returns a mock List of Person objects
@@ -41,6 +38,7 @@ public class DataProvider {
         listPeople.add(new Person("Jim Ramirez", "07123456789", R.drawable.male7));
         listPeople.add(new Person("Cassandra Hunter", "07123456789", R.drawable.female6));
         listPeople.add(new Person("Viola Guerrero", "07123456789", R.drawable.female7));
+        Collections.shuffle(listPeople);
         return listPeople;
     }
 }

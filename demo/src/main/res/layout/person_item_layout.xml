@@ -26,6 +26,6 @@
         android:layout_below="@id/text_view_name"
         android:layout_marginLeft="10dp"
         android:textSize="16sp"
-        android:textColor="#0099cc" />
+        android:textColor="@color/accent" />
 
 </RelativeLayout>
