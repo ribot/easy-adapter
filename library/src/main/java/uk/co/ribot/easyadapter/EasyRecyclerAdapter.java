@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2014 Ribot Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.co.ribot.easyadapter;
 
 import android.content.Context;
@@ -9,12 +25,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyRecyclerAdapter.RecyclerViewHolder> {
+/**
+ * Extension of {@link uk.co.ribot.easyadapter.BaseEasyRecyclerAdapter} that uses a List as data structure and provide methods
+ * to set a new list of items or add them to the existing List.
+ * Don't worry about implementing your own Adapter, the EasyRecyclerAdapter will <b>do the tedious work for you.</b>
+ * You only have to implement an {@link uk.co.ribot.easyadapter.ItemViewHolder} and pass it into the constructor of this class.
+ *
+ * @param <T> Data type for items
+ */
+public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
 
     private List<T> mListItems;
-    private Class mItemViewHolderClass;
-    private LayoutInflater mInflater;
-    private Integer mItemLayoutId;
 
     /**
      * Constructs and EasyAdapter with a Context, an {@link ItemViewHolder} class, and list of items.
@@ -24,8 +45,8 @@ public class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyRecyclerAda
      * @param listItems           the list of items to load in the Adapter
      */
     public EasyRecyclerAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, List<T> listItems) {
+        super(context, itemViewHolderClass);
         setItems(listItems);
-        init(context, itemViewHolderClass);
     }
 
     /**
@@ -35,14 +56,7 @@ public class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyRecyclerAda
      * @param itemViewHolderClass your {@link ItemViewHolder} implementation class
      */
     public EasyRecyclerAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
-        mListItems = new ArrayList<T>();
-        init(context, itemViewHolderClass);
-    }
-
-    private void init(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
-        mItemViewHolderClass = itemViewHolderClass;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mItemLayoutId = EasyAdapterUtil.parseItemLayoutId(itemViewHolderClass);
+        super(context, itemViewHolderClass);
     }
 
     /**
@@ -74,34 +88,26 @@ public class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyRecyclerAda
         mListItems.addAll(listItems);
     }
 
+
+    /**
+     * Access a data item
+     *
+     * @param position the position of the item
+     * @return the data item in the given position
+     */
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View itemView = mInflater.inflate(mItemLayoutId, parent, false);
-        ItemViewHolder<T> itemViewHolder = EasyAdapterUtil.createViewHolder(itemView, mItemViewHolderClass);
-        itemViewHolder.onSetListeners();
-        return new RecyclerViewHolder(itemViewHolder);
+    public T getItem(int position) {
+        return mListItems.get(position);
     }
 
-    @Override
-    public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, int position) {
-        T item = mListItems.get(position);
-        PositionInfo positionInfo = new PositionInfo(position, EasyAdapterUtil.isFirst(position), EasyAdapterUtil.isLast(position, mListItems));
-        recyclerViewHolder.itemViewHolder.onSetValues(item, positionInfo);
-    }
-
+    /**
+     * Access the size of the adapter
+     *
+     * @return the number of items in the adapter.
+     */
     @Override
     public int getItemCount() {
         return mListItems.size();
     }
 
-    static class RecyclerViewHolder extends RecyclerView.ViewHolder{
-
-        ItemViewHolder itemViewHolder;
-
-        public RecyclerViewHolder(ItemViewHolder itemViewHolder) {
-            super(itemViewHolder.getView());
-            this.itemViewHolder = itemViewHolder;
-        }
-
-    }
 }

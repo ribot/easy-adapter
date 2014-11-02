@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extension of BaseEasyAdapter that uses a List as data structure and provide methods to set a new list of items or add them to the existing List.
+ * Extension of {@link uk.co.ribot.easyadapter.BaseEasyAdapter} that uses a List as data structure and provide methods to set a new list of items or add them to the existing List.
  * Don't worry about implementing your own Adapter, the EasyAdapter will <b>do the tedious work for you.</b>
  * You only have to implement an {@link uk.co.ribot.easyadapter.ItemViewHolder} and pass it into the constructor of this class.
  * @param <T> Data type for items
