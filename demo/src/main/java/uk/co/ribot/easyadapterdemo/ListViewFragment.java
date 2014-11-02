@@ -37,7 +37,7 @@ public class ListViewFragment extends Fragment {
           Alternatively, you can create an EasyAdapter only with a Context and an ItemViewHolder class and set
           the list of items later.
          */
-        listView.setAdapter(new EasyAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getListPeople()));
+        listView.setAdapter(new EasyAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getMockPeopleSet1()));
 
         return layout;
     }

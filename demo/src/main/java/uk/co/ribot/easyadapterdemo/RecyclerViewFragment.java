@@ -40,7 +40,7 @@ public class RecyclerViewFragment extends Fragment {
           Alternatively, you can create an EasyRecyclerAdapter only with a Context and an ItemViewHolder class and set
           the list of items later.
          */
-        recyclerView.setAdapter(new EasyRecyclerAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getListPeople()));
+        recyclerView.setAdapter(new EasyRecyclerAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getMockPeopleSet2()));
 
         return layout;
     }
