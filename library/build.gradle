@@ -19,7 +19,7 @@ group = "uk.co.ribot"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    compile "com.android.support:recyclerview-v7:21.0.+"
+    compile "com.android.support:recyclerview-v7:21.0.0"
 
     androidTestCompile 'junit:junit:4.11'
     androidTestCompile ('org.robolectric:robolectric:2.3') {
