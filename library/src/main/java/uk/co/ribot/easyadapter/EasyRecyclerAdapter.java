@@ -57,6 +57,7 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
      */
     public EasyRecyclerAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
         super(context, itemViewHolderClass);
+        mListItems = new ArrayList<T>();
     }
 
     /**
@@ -76,7 +77,7 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
      */
     public void addItem(T item) {
         mListItems.add(item);
-        notifyItemChanged(mListItems.indexOf(item));
+        notifyItemInserted(mListItems.indexOf(item));
     }
 
     /**
@@ -85,7 +86,9 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
      * @param listItems list of items to append
      */
     public void addItems(List<T> listItems) {
+        if (listItems.size() == 0) return;
         mListItems.addAll(listItems);
+        notifyItemRangeInserted(mListItems.indexOf(listItems.get(0)), listItems.size());
     }
 
 
