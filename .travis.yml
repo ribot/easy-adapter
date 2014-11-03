@@ -1,7 +1,7 @@
 language: android
 android:
     components:
-        - build-tools-21.1
+        - build-tools-21.1.0
         - android-21
     licenses:
         - android-sdk-license-5be876d5
