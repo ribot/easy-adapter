@@ -1,10 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="uk.co.ribot.easyadapter">
-
-    <!-- Workaround to use RecyclerView on pre L
-    http://www.reddit.com/r/androiddev/comments/297xli/howto_use_the_v21_support_libs_on_older_versions/ -->
-    <uses-sdk
-        tools:node="replace" />
 
 </manifest>
