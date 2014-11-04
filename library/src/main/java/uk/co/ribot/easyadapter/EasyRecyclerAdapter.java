@@ -91,7 +91,6 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
         notifyItemRangeInserted(mListItems.indexOf(listItems.get(0)), listItems.size());
     }
 
-
     /**
      * Access a data item
      *
@@ -112,5 +111,4 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
     public int getItemCount() {
         return mListItems.size();
     }
-
 }

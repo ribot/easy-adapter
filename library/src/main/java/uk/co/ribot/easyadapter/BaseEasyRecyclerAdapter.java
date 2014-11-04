@@ -81,6 +81,5 @@ public abstract class BaseEasyRecyclerAdapter<T> extends RecyclerView.Adapter<Ba
             super(itemViewHolder.getView());
             this.itemViewHolder = itemViewHolder;
         }
-
     }
 }
