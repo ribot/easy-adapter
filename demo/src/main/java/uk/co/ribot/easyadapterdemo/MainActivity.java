@@ -57,22 +57,22 @@ public class MainActivity extends ActionBarActivity {
 
     // Create a tab listener that is called when the user changes tabs.
     private ActionBar.TabListener mTabListener = new ActionBar.TabListener() {
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
             mViewPager.setCurrentItem(tab.getPosition());
         }
 
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
         }
 
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
         }
     };
 
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onPageScrolled(int i, float v, int i2) {
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         }
 
@@ -85,14 +85,14 @@ public class MainActivity extends ActionBarActivity {
         }
 
         @Override
-        public void onPageScrollStateChanged(int i) {
+        public void onPageScrollStateChanged(int state) {
 
         }
     };
 
     private class MyPageAdapter extends FragmentPagerAdapter {
-        private MyPageAdapter(FragmentManager fm) {
-            super(fm);
+        private MyPageAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
         }
 
         @Override
