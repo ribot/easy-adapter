@@ -54,7 +54,7 @@ public class MainTest extends BaseTestCase<MainActivity> {
     public void testRecyclerViewPeople() {
         solo.clickOnText(getActivity().getString(R.string.tab_2_name));
         List<Person> listPeople = DataProvider.getMockPeopleSet2();
-        //It should check all the items on the list but Robotium seems to have problems scrolling RecycleViews
+        //TODO It should check all the items on the list but Robotium seems to have problems scrolling RecycleViews
         //So for now just check the two first ones.
         assertTrue(solo.searchText(listPeople.get(0).getName(), 1, true, true));
         assertTrue(solo.searchText(listPeople.get(1).getName(), 1, true, true));
