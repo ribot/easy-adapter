@@ -1,11 +1,12 @@
 EasyAdapter For Android
 ===========
 
-Using `AdapterViews` has never been so easy. Inspired by the [view holder](http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder) design pattern, this library provides an easier way of linking `AdapterViews` and the underlying data for that view without having to implement your own Adapter. The `EasyAdapter` will do the tedious work for you.
+Using `ListView` and `RecyclerView` has never been so easy. Inspired by the [view holder](http://developer.android.com/training/improving-layouts/smooth-scrolling.html#ViewHolder) design pattern, this library provides an easier way of linking `ListView` and `RecyclerView` with the underlying data for that view without having to implement your own Adapter. EasyAdapter will do the tedious work for you.
 
 ###### Why to use EasyAdapter?
 * __Simpler than implementing your own Adapter__. You just have to extend `ItemViewHolder` and use annotations to link your code to views and layouts. See examples below or demo app.
 * __Ensure performance__. It reuses the view holders so helps your ListViews scroll smoothly.
+* __Easy to switch between `ListView` and `RecyclerView`__. Once you implement your `ItemViewHolder` this can be used with both widgets. By just changing a cuple of lines you can easily switch between a `ListView` and a `RecyclerView`.
 * __Cleaner code__. By keeping the view fields inside the view holders your code becomes cleaner an more understandable.
 
 EasyAdapter supports Android 2.1 and above.
@@ -15,7 +16,7 @@ Setup
 #### 1. Gradle
 ```groovy
 dependencies {
-    compile 'uk.co.ribot:easyadapter:1.2.0'
+    compile 'uk.co.ribot:easyadapter:1.3.0@aar'
 }
 ```
 #### 2. Maven
@@ -23,21 +24,20 @@ dependencies {
 <dependency>
     <groupId>uk.co.ribot</groupId>
     <artifactId>easyadapter</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
+    <type>aar</type>
 </dependency>
 ```
 #### 3. Manual
 
-Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.2.0.jar)__
+Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.3.0.jar)__
 
 Examples
 --------------
 
-### ListView with EasyAdapter
+This example shows how to implement a `ListView` and a `RecyclerView` that displays a list of people. Every item on the list is a person with an image, name and phone number. The item's layout is `person_item_layout.xml` and it contains an `ImageView` and two `TextViews`. The `Person` class contains data about a person.
 
-This example shows how to implement a `ListView` that displays a list of people. Every item on the list is a person with an image, name and phone number. The item's layout is `person_item_layout.xml` and it contains an `ImageView` and two `TextViews`. The `Person` class contains data about a person.
-
-#### 1. Extend ItemViewHolder
+### 1. Extend ItemViewHolder
 
 ```java
 //Annotate the class with the layout ID of the item.
@@ -71,7 +71,9 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
 ```
 If you define the `ViewHolder` as an inner class, it must be `static` so that the `EasyAdapter` can instantiate it.
 
-#### 2. Create the EasyAdapter and add it to your ListView
+### 2. Link the PersonViewHolder to your ListView or RecyclerView
+
+#### ListView
 
 ```java
 /*
@@ -81,6 +83,14 @@ the list of items later on.
 */
 mListView.setAdapter(new EasyAdapter<Person>(this, PersonViewHolder.class, DataProvider.getListPeople()));
 ```
+
+#### RecyclerView
+
+```java
+//Same as above but use a EasyRecyclerAdapter instead of EasyAdapter
+mRecyclerView.setAdapter(new EasyRecyclerAdapter<Person>(this, PersonViewHolder.class, DataProvider.getListPeople()));
+```
+
 See demo app for a full working example.
 
 ### Other uses of View Holders.
