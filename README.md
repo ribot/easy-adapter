@@ -6,7 +6,7 @@ Using `ListView` and `RecyclerView` has never been so easy. Inspired by the [vie
 ###### Why to use EasyAdapter?
 * __Simpler than implementing your own Adapter__. You just have to extend `ItemViewHolder` and use annotations to link your code to views and layouts. See examples below or demo app.
 * __Ensure performance__. It reuses the view holders so helps your ListViews scroll smoothly.
-* __Easy to switch between `ListView` and `RecyclerView`__. Once you implement your `ItemViewHolder` this can be used with both widgets. By just changing a cuple of lines you can easily switch between a `ListView` and a `RecyclerView`.
+* __Easy to switch between `ListView` and `RecyclerView`__. Once you implement your `ItemViewHolder` this can be used with both widgets. By just changing a couple of lines you can easily switch between a `ListView` and a `RecyclerView`.
 * __Cleaner code__. By keeping the view fields inside the view holders your code becomes cleaner an more understandable.
 
 EasyAdapter supports Android 2.1 and above.
