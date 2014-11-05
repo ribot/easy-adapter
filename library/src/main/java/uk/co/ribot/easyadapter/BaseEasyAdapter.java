@@ -35,7 +35,7 @@ public abstract class BaseEasyAdapter<T> extends BaseAdapter {
     private Integer mItemLayoutId;
 
     /**
-     * Constructs and EasyAdapter with a Context and an {@link uk.co.ribot.easyadapter.ItemViewHolder} class.
+     * Constructs an EasyAdapter with a Context and an {@link uk.co.ribot.easyadapter.ItemViewHolder} class.
      *
      * @param context             a valid Context
      * @param itemViewHolderClass your {@link uk.co.ribot.easyadapter.ItemViewHolder} implementation class

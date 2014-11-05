@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 19
-        versionCode 2
-        versionName "1.1"
+        targetSdkVersion 21
+        versionCode 3
+        versionName "1.2"
         applicationId "uk.co.ribot.easyadapterdemo"
         testApplicationId "uk.co.ribot.easyadapterdemo.test"
         testInstrumentationRunner "uk.co.ribot.easyadapterdemo.test.InstrumentationTestRunner"
@@ -17,6 +17,8 @@ android {
 
 dependencies {
     compile project(":library")
+    compile 'com.android.support:recyclerview-v7:21.0.0'
+    compile 'com.android.support:appcompat-v7:21.0.0'
 
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
 }

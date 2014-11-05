@@ -3,5 +3,7 @@
 
     <string name="app_name">EasyAdapter Demo</string>
     <string name="my_name_string">My name is %s !</string>
+    <string name="tab_1_name">ListView</string>
+    <string name="tab_2_name">RecyclerView</string>
 
 </resources>
