@@ -104,7 +104,7 @@ uploadArchives {
             name 'Android Easy Adapter'
             artifactId 'easyadapter'
             packaging 'aar'
-            description 'Library that facilitates the use of AdapterViews on Android'
+            description 'Library that facilitates the use of AdapterViews and RecyclerViews on Android'
             url 'https://github.com/ribot/easy-adapter'
 
             scm {
