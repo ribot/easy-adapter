@@ -36,6 +36,7 @@ public abstract class BaseEasyRecyclerAdapter<T> extends RecyclerView.Adapter<Ba
     private Class mItemViewHolderClass;
     private LayoutInflater mInflater;
     private Integer mItemLayoutId;
+    private Object mListener;
 
     /**
      * Constructs a BaseEasyRecyclerAdapter with a Context and an {@link ItemViewHolder} class.
@@ -45,6 +46,20 @@ public abstract class BaseEasyRecyclerAdapter<T> extends RecyclerView.Adapter<Ba
      */
     public BaseEasyRecyclerAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
         init(context, itemViewHolderClass);
+    }
+
+    /**
+     * Constructs a BaseEasyRecyclerAdapter with a Context, an {@link ItemViewHolder} class and a generic listener.
+     *
+     * @param context             a valid Context
+     * @param itemViewHolderClass your {@link ItemViewHolder} implementation class
+     * @param listener            a generic object that you can access from your {@link ItemViewHolder} by calling
+     *                            {@link ItemViewHolder#getListener()}, This can be used to pass a listener to the view holder that then you
+     *                            can cast and use as a callback.
+     */
+    public BaseEasyRecyclerAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, Object listener) {
+        init(context, itemViewHolderClass);
+        mListener = listener;
     }
 
     private void init(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
@@ -59,6 +74,7 @@ public abstract class BaseEasyRecyclerAdapter<T> extends RecyclerView.Adapter<Ba
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         View itemView = mInflater.inflate(mItemLayoutId, parent, false);
         ItemViewHolder<T> itemViewHolder = EasyAdapterUtil.createViewHolder(itemView, mItemViewHolderClass);
+        itemViewHolder.setListener(mListener);
         itemViewHolder.onSetListeners();
         return new RecyclerViewHolder(itemViewHolder);
     }

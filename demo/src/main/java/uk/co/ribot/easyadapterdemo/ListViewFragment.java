@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import uk.co.ribot.easyadapter.EasyAdapter;
 
@@ -33,13 +34,26 @@ public class ListViewFragment extends Fragment {
 
         ListView listView = (ListView) layout.findViewById(R.id.list_view);
         /*
-          Simply create an EasyAdapter by passing a Context, your ItemViewHolder class and the list of items.
-          Alternatively, you can create an EasyAdapter only with a Context and an ItemViewHolder class and set
-          the list of items later.
+          Simply create an EasyAdapter by passing a Context and your ItemViewHolder implementation.
+          Optionally, you can pass the list of items and a listener defined in the ItemViewHolder.
          */
-        listView.setAdapter(new EasyAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getMockPeopleSet1()));
+        listView.setAdapter(new EasyAdapter<Person>(
+                getActivity(),
+                PersonViewHolder.class,
+                DataProvider.getMockPeopleSet1(),
+                mPersonHolderListener));
 
         return layout;
     }
+
+    /**
+     * A listener can be defined an set into the adapter so that it can be accessed from the PersonViewHolder.
+     */
+    private PersonViewHolder.PersonHolderListener mPersonHolderListener = new PersonViewHolder.PersonHolderListener() {
+        @Override
+        public void onPersonImageClicked(Person person) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.my_name_string, person.getName()), Toast.LENGTH_LONG).show();
+        }
+    };
 
 }

@@ -35,7 +35,7 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
      *
      * @param context             a valid Context
      * @param itemViewHolderClass your {@link uk.co.ribot.easyadapter.ItemViewHolder} implementation class
-     * @param listItems           the list of items to load in the Adapter
+     * @param listItems           the list of items to load into the Adapter
      */
     public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, List<T> listItems) {
         super(context, itemViewHolderClass);
@@ -50,6 +50,36 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
      */
     public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
         super(context, itemViewHolderClass);
+        mListItems = new ArrayList<T>();
+    }
+
+    /**
+     * Constructs and EasyAdapter with a Context, an {@link uk.co.ribot.easyadapter.ItemViewHolder} class, a list of items
+     * and a generic listener.
+     *
+     * @param context             a valid Context
+     * @param itemViewHolderClass your {@link ItemViewHolder} implementation class
+     * @param listItems           the list of items to load into the Adapter
+     * @param listener            a generic object that you can access from your {@link ItemViewHolder} by calling
+     *                            {@link ItemViewHolder#getListener()}, This can be used to pass a listener to the view holder that then you
+     *                            can cast and use as a callback.
+     */
+    public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, List<T> listItems, Object listener) {
+        super(context, itemViewHolderClass, listener);
+        setItems(listItems);
+    }
+
+    /**
+     * Constructs and EasyAdapter with a Context, an {@link ItemViewHolder} class and a generic listener.
+     *
+     * @param context             a valid Context
+     * @param itemViewHolderClass your {@link ItemViewHolder} implementation class
+     * @param listener            a generic object that you can access from your {@link ItemViewHolder} by calling
+     *                            {@link ItemViewHolder#getListener()}, This can be used to pass a listener to the view holder that then you
+     *                            can cast and use as a callback.
+     */
+    public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, Object listener) {
+        super(context, itemViewHolderClass, listener);
         mListItems = new ArrayList<T>();
     }
 
