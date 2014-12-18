@@ -16,13 +16,14 @@ class EasyAdapterUtil {
             Constructor<? extends ItemViewHolder> constructor = itemViewHolderClass.getConstructor(View.class);
             return constructor.newInstance(view);
         } catch (IllegalAccessException e) {
-            throw new InvalidViewHolderException();
+            throw new RuntimeException(e);
         } catch (NoSuchMethodException e) {
-            throw new InvalidViewHolderException();
+            throw new RuntimeException("Unable to find a public constructor that takes an argument View in " +
+                    itemViewHolderClass.getSimpleName(), e);
         } catch (InvocationTargetException e) {
-            throw new InvalidViewHolderException();
+            throw new RuntimeException(e.getTargetException());
         } catch (InstantiationException e) {
-            throw new InvalidViewHolderException();
+            throw new RuntimeException("Unable to instantiate " + itemViewHolderClass.getSimpleName(),  e);
         }
     }
 

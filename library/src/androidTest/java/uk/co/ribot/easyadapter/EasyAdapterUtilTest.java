@@ -27,11 +27,11 @@ public class EasyAdapterUtilTest {
 
     @Test public void testCreateInvalidViewHolder() throws Exception {
         View view = new View(Robolectric.application);
-        InvalidViewHolderException exception = null;
+        RuntimeException exception = null;
         try {
-            //Should throw a InvalidViewHolderException exception
+            //Should throw a RuntimeException because the constructor is invalid
             EasyAdapterUtil.createViewHolder(view, InvalidItemViewHolder.class);
-        }catch (InvalidViewHolderException e) {
+        } catch (RuntimeException e) {
             exception = e;
         }
         Assert.assertNotNull(exception);
@@ -46,7 +46,7 @@ public class EasyAdapterUtilTest {
         LayoutIdMissingException exception = null;
         try {
             EasyAdapterUtil.parseItemLayoutId(ItemViewHolderWithoutLayoutId.class);
-        }catch (LayoutIdMissingException e) {
+        } catch (LayoutIdMissingException e) {
             exception = e;
         }
         Assert.assertNotNull(exception);
