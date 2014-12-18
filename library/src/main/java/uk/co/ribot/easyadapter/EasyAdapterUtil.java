@@ -4,7 +4,6 @@ import android.view.View;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import uk.co.ribot.easyadapter.annotations.ClassAnnotationParser;
 
