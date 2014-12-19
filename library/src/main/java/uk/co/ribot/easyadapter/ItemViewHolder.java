@@ -15,6 +15,7 @@
  */
 package uk.co.ribot.easyadapter;
 
+import android.support.annotation.Nullable;
 import android.view.View;
 
 /**
@@ -30,6 +31,7 @@ import android.view.View;
 public abstract class ItemViewHolder<T> extends ViewHolder {
 
     private T mItem;
+    private Object mListener;
 
     /**
      * Constructs an item view holder with the item view
@@ -83,6 +85,36 @@ public abstract class ItemViewHolder<T> extends ViewHolder {
      * you can still call {@link #getItem()} from inside your listener object implementation, e.g from inside onClick().
      */
     public void onSetListeners() {
+    }
+
+    /**
+     * Gets the listener object that was passed into the Adapter through its constructor.
+     *
+     * @return a generic listener object that can be casted and used as a callback
+     * or null if not listener was set into the Adapter.
+     */
+    @Nullable
+    public Object getListener() {
+        return mListener;
+    }
+
+    /**
+     * Gets the listener object that was passed into the Adapter through its constructor and cast
+     * it to a given type.
+     *
+     * @param type the type of the listener
+     * @return the listener casted to the given type or null if not listener was set into the Adapter.
+     */
+    @Nullable
+    public <P> P getListener(Class<P> type) {
+        if (mListener != null) {
+            return type.cast(mListener);
+        }
+        return null;
+    }
+
+    protected void setListener(Object listener) {
+        mListener = listener;
     }
 
 }

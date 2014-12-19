@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import uk.co.ribot.easyadapter.EasyRecyclerAdapter;
 
@@ -36,13 +37,26 @@ public class RecyclerViewFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         /*
-          Simply create an EasyRecyclerAdapter by passing a Context, your ItemViewHolder class and the list of items.
-          Alternatively, you can create an EasyRecyclerAdapter only with a Context and an ItemViewHolder class and set
-          the list of items later.
+          Simply create an EasyRecyclerAdapter by passing a Context and your ItemViewHolder implementation.
+          Optionally, you can pass the list of items and a listener defined in the ItemViewHolder.
          */
-        recyclerView.setAdapter(new EasyRecyclerAdapter<Person>(getActivity(), PersonViewHolder.class, DataProvider.getMockPeopleSet2()));
+        recyclerView.setAdapter(new EasyRecyclerAdapter<Person>(
+                getActivity(),
+                PersonViewHolder.class,
+                DataProvider.getMockPeopleSet2(),
+                mPersonHolderListener));
 
         return layout;
     }
+
+    /**
+     * A listener can be defined an set into the adapter so that it can be accessed from the PersonViewHolder.
+     */
+    private PersonViewHolder.PersonHolderListener mPersonHolderListener = new PersonViewHolder.PersonHolderListener() {
+        @Override
+        public void onPersonImageClicked(Person person) {
+            Toast.makeText(getActivity(), getActivity().getString(R.string.my_name_string, person.getName()), Toast.LENGTH_LONG).show();
+        }
+    };
 
 }

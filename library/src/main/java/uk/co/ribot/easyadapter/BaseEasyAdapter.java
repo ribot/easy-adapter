@@ -33,6 +33,7 @@ public abstract class BaseEasyAdapter<T> extends BaseAdapter {
     private Class<? extends ItemViewHolder> mItemViewHolderClass;
     private LayoutInflater mInflater;
     private Integer mItemLayoutId;
+    private Object mListener;
 
     /**
      * Constructs an EasyAdapter with a Context and an {@link uk.co.ribot.easyadapter.ItemViewHolder} class.
@@ -42,6 +43,20 @@ public abstract class BaseEasyAdapter<T> extends BaseAdapter {
      */
     public BaseEasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
         init(context, itemViewHolderClass);
+    }
+
+    /**
+     * Constructs an EasyAdapter with a Context, an {@link uk.co.ribot.easyadapter.ItemViewHolder} class and a generic listener
+     *
+     * @param context             a valid Context
+     * @param itemViewHolderClass your {@link ItemViewHolder} implementation class
+     * @param listener            a generic object that you can access from your {@link ItemViewHolder} by calling
+     *                            {@link ItemViewHolder#getListener()}, This can be used to pass a listener to the view holder that then you
+     *                            can cast and use as a callback.
+     */
+    public BaseEasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, Object listener) {
+        init(context, itemViewHolderClass);
+        mListener = listener;
     }
 
     private void init(Context context, Class<? extends ItemViewHolder> itemViewHolderClass) {
@@ -60,6 +75,7 @@ public abstract class BaseEasyAdapter<T> extends BaseAdapter {
             convertView = mInflater.inflate(mItemLayoutId, parent, false);
             //Create a new view holder using reflection
             holder = EasyAdapterUtil.createViewHolder(convertView, mItemViewHolderClass);
+            holder.setListener(mListener);
             holder.onSetListeners();
             if (convertView != null) convertView.setTag(holder);
         } else {
@@ -74,4 +90,5 @@ public abstract class BaseEasyAdapter<T> extends BaseAdapter {
 
         return convertView;
     }
+
 }

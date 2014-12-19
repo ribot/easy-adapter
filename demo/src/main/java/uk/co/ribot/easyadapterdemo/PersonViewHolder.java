@@ -18,7 +18,6 @@ package uk.co.ribot.easyadapterdemo;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import uk.co.ribot.easyadapter.ItemViewHolder;
 import uk.co.ribot.easyadapter.PositionInfo;
@@ -65,12 +64,15 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
         imageViewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //To access the item data object from inside listeners, call getItem()
-                Person person = getItem();
-                if (person != null) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.my_name_string, person.getName()), Toast.LENGTH_LONG).show();
+                PersonHolderListener listener = getListener(PersonHolderListener.class);
+                if (listener != null) {
+                    listener.onPersonImageClicked(getItem());
                 }
             }
         });
+    }
+
+    public interface PersonHolderListener {
+        public void onPersonImageClicked(Person person);
     }
 }
