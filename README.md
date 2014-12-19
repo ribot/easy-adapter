@@ -16,7 +16,7 @@ Setup
 #### 1. Gradle
 ```groovy
 dependencies {
-    compile 'uk.co.ribot:easyadapter:1.3.0@aar'
+    compile 'uk.co.ribot:easyadapter:1.4.0@aar'
 }
 ```
 #### 2. Maven
@@ -24,20 +24,20 @@ dependencies {
 <dependency>
     <groupId>uk.co.ribot</groupId>
     <artifactId>easyadapter</artifactId>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <type>aar</type>
 </dependency>
 ```
 #### 3. Manual
 
-Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.3.0.jar)__
+Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.4.0.jar)__
 
-Examples
+Sample
 --------------
 
 This example shows how to implement a `ListView` and a `RecyclerView` that displays a list of people. Every item on the list is a person with an image, name and phone number. The item's layout is `person_item_layout.xml` and it contains an `ImageView` and two `TextViews`. The `Person` class contains data about a person.
 
-### 1. Extend ItemViewHolder
+#### 1. Extend ItemViewHolder
 
 ```java
 //Annotate the class with the layout ID of the item.
@@ -71,9 +71,9 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
 ```
 If you define the `ViewHolder` as an inner class, it must be `static` so that the `EasyAdapter` can instantiate it.
 
-### 2. Link the PersonViewHolder to your ListView or RecyclerView
+#### 2. Link the view holder to your ListView or RecyclerView
 
-#### ListView
+##### ListView
 
 ```java
 /*
@@ -81,59 +81,76 @@ Create an EasyAdapter by passing a Context, your ItemViewHolder class and the li
 Alternatively, you can create an EasyAdapter only with a Context and an ItemViewHolder class and set
 the list of items later on.
 */
-mListView.setAdapter(new EasyAdapter<Person>(this, PersonViewHolder.class, DataProvider.getListPeople()));
+mListView.setAdapter(new EasyAdapter<Person>(
+        this,
+        PersonViewHolder.class,
+        DataProvider.getListPeople()));
 ```
 
-#### RecyclerView
+##### RecyclerView
 
 ```java
 //Same as above but use a EasyRecyclerAdapter instead of EasyAdapter
-mRecyclerView.setAdapter(new EasyRecyclerAdapter<Person>(this, PersonViewHolder.class, DataProvider.getListPeople()));
+mRecyclerView.setAdapter(new EasyRecyclerAdapter<Person>(
+        this,
+        PersonViewHolder.class,
+        DataProvider.getListPeople()));
 ```
 
 See demo app for a full working example.
 
-### Other uses of View Holders.
+### Pass a callback or listener to the view holder. 
 
-View holders are very convenient with adapters, but they can also be useful to hold the views of Fragments and Activities. For this reason, this library provides the abstract classes `ViewHolder` and `ActivityViewHolder` that can be used in the same way as the `ItemViewHolder`.
+Sometimes you need to notify your `Activity` or `Fragment` about an action that happened in your view holder, for example, you need to set the title of the `Activity` when a button that is in the view holder is clicked. From version 1.4.+ this is quite easy to implement by passing a listener or callback to the view holder through the adapter. See the example below:
 
-#### ActivityViewHolder example
-
+##### In your Activity create an easy adapter with a listener.  
 ```java
-public class MainActivity extends Activity {
-
-    MainActivityViewHolder mViewHolder;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        // Create the view holder.
-        mViewHolder = new MainActivityViewHolder(this);
-        // Access the views
-        mViewHolder.textViewTitle.setText("Some title");
-
+//Implement the listener. 
+private PersonViewHolder.PersonListener mListener = new PersonViewHolder.PersonListener() {
+    public onButtonClicked(Person person) {
+        setTitle(person.getName());
     }
+}
 
-    //Extend ActivityViewHolder and annotate the view fields
-    static class MainActivityViewHolder extends ActivityViewHolder {
+//Set the listener when creating the EasyRecyclerAdapter (same for EasyAdapter)
+mRecyclerView.setAdapter(new EasyRecyclerAdapter<Person>(
+        this,
+        PersonViewHolder.class,
+        DataProvider.getListPeople(),
+        mListener));
+```
 
-        @ViewId(R.id.text_view_title)
-        TextView textViewTitle
+##### Get your listener from the ItemViewHolder
+```java
+@LayoutId(R.layout.person_item_layout)
+public class PersonViewHolder extends ItemViewHolder<Person> {
 
-        @ViewId(R.id.list_view_people)
-        ListView listViewPeople;
-
-        public MainActivityViewHolder(Activity activity) {
-            super(activity);
+    @ViewId(R.id.button)
+    Button button;
+    
+    //Implement onSetListeners and set a click listener in the button.  
+    @Override
+    public void onSetListeners() {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Get your custom listener and call the method. 
+                PersonListener listener = getListener(PersonListener.class);
+                if (listener != null) {
+                    listener.onButtonClicked(getItem());
+                }
+            }
         }
-
+    }
+    
+    //Define your custom interface 
+    public interface PersonListener {
+        public onButtonClicked(Person person);
     }
 }
 ```
-This will keep your code tidy and you won't have to use `findViewById(id)`. Use `ViewHolder` for Fragments.
 
-Build with Gradle
+Build
 --------------
 ##### The demo app
 ```
