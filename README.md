@@ -145,7 +145,7 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
     
     //Define your custom interface 
     public interface PersonListener {
-        public onButtonClicked(Person person);
+        public void onButtonClicked(Person person);
     }
 }
 ```
