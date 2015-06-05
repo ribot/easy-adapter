@@ -23,15 +23,19 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+import uk.co.ribot.easyadapter.util.DefaultConfig;
+
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = DefaultConfig.EMULATE_SDK)
 public class ItemViewHolderTest {
 
     @Test public void testGeListener() throws Exception {
-        View view = new View(Robolectric.application);
+        View view = new View(RuntimeEnvironment.application);
         ItemViewHolder itemViewHolder = new ValidItemViewHolder(view);
         itemViewHolder.setListener(new ValidItemViewHolder.ValidItemViewHolderListener() {
             @Override
@@ -44,7 +48,7 @@ public class ItemViewHolderTest {
     }
 
     @Test public void testGeListenerWithInvalidType() throws Exception {
-        View view = new View(Robolectric.application);
+        View view = new View(RuntimeEnvironment.application);
         ItemViewHolder itemViewHolder = new ValidItemViewHolder(view);
         itemViewHolder.setListener(new ValidItemViewHolder.ValidItemViewHolderListener() {
             @Override
@@ -63,7 +67,7 @@ public class ItemViewHolderTest {
     }
 
     @Test public void testGeListenerWhenEmpty() throws Exception {
-        View view = new View(Robolectric.application);
+        View view = new View(RuntimeEnvironment.application);
         ItemViewHolder itemViewHolder = new ValidItemViewHolder(view);
         Assert.assertNull(itemViewHolder.getListener());
         Assert.assertNull(itemViewHolder.getListener(ValidItemViewHolder.ValidItemViewHolderListener.class));

@@ -29,15 +29,18 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import uk.co.ribot.easyadapter.annotations.FieldAnnotationParser;
 import uk.co.ribot.easyadapter.annotations.ViewId;
+import uk.co.ribot.easyadapter.util.DefaultConfig;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1) //Disable because this code will run inside robolectric with api level 17+
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = DefaultConfig.EMULATE_SDK)
 public class FieldAnnotationParserTest {
 
     private static final int TEXT_VIEW_ID = 1000;
@@ -60,11 +63,11 @@ public class FieldAnnotationParserTest {
 
     @SuppressWarnings("ResourceType") //Because of warning when setting a hardcoded ID into the view
     private static LinearLayout createTestLinearLayout() {
-        LinearLayout linearLayout = new LinearLayout(Robolectric.application);
-        TextView textView = new TextView(Robolectric.application);
+        LinearLayout linearLayout = new LinearLayout(RuntimeEnvironment.application);
+        TextView textView = new TextView(RuntimeEnvironment.application);
         textView.setId(TEXT_VIEW_ID);
         linearLayout.addView(textView);
-        ImageView imageView = new ImageView(Robolectric.application);
+        ImageView imageView = new ImageView(RuntimeEnvironment.application);
         imageView.setId(IMAGE_VIEW_ID);
         linearLayout.addView(imageView);
         return linearLayout;
