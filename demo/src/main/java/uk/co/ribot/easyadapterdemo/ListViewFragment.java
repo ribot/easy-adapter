@@ -37,7 +37,7 @@ public class ListViewFragment extends Fragment {
           Simply create an EasyAdapter by passing a Context and your ItemViewHolder implementation.
           Optionally, you can pass the list of items and a listener defined in the ItemViewHolder.
          */
-        listView.setAdapter(new EasyAdapter<Person>(
+        listView.setAdapter(new EasyAdapter<>(
                 getActivity(),
                 PersonViewHolder.class,
                 DataProvider.getMockPeopleSet1(),
