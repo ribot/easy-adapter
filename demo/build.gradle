@@ -10,8 +10,16 @@ android {
         versionCode 3
         versionName "1.2"
         applicationId "uk.co.ribot.easyadapterdemo"
-        testApplicationId "uk.co.ribot.easyadapterdemo.test"
-        testInstrumentationRunner "uk.co.ribot.easyadapterdemo.test.InstrumentationTestRunner"
+        testInstrumentationRunner "uk.co.ribot.easyadapterdemo.util.UnlockDeviceTestRunner"
+    }
+
+    //Needed because of espresso and robolectric
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
     }
 }
 
@@ -20,5 +28,13 @@ dependencies {
     compile "com.android.support:recyclerview-v7:22.2.0"
     compile 'com.android.support:appcompat-v7:22.2.0'
 
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
+    androidTestCompile 'com.android.support:support-annotations:22.2.0'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.1'
+    androidTestCompile 'com.android.support.test:runner:0.2'
+    androidTestCompile 'com.android.support.test:rules:0.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.1') {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
 }
