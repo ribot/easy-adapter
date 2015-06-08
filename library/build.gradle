@@ -1,39 +1,33 @@
 import com.android.builder.core.BuilderConstants
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.14.1'
-    }
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'robolectric'
 
 version = "1.4.0"
 group = "uk.co.ribot"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    compile "com.android.support:recyclerview-v7:21.0.0"
+    compile "com.android.support:recyclerview-v7:22.2.0"
 
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile ('org.robolectric:robolectric:2.4') {
-        exclude group: 'com.android.support'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-core:1.1'
+    testCompile 'org.hamcrest:hamcrest-library:1.1'
+    testCompile 'org.hamcrest:hamcrest-integration:1.1'
+    testCompile('org.robolectric:robolectric:3.0-rc3') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 7
-        targetSdkVersion 21
+        targetSdkVersion 22
     }
 }
 
@@ -129,12 +123,5 @@ uploadArchives {
                 }
             }
         }
-    }
-}
-
-robolectric {
-    // Use afterTest to listen to the test execution results
-    afterTest { descriptor, result ->
-        println "Executing test for {$descriptor.name} with result: ${result.resultType}"
     }
 }

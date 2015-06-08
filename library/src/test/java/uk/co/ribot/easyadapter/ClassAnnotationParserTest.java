@@ -22,14 +22,16 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import uk.co.ribot.easyadapter.annotations.ClassAnnotationParser;
 import uk.co.ribot.easyadapter.annotations.LayoutId;
+import uk.co.ribot.easyadapter.util.DefaultConfig;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = DefaultConfig.EMULATE_SDK)
 public class ClassAnnotationParserTest {
 
     private static final int LAYOUT_ID = 1;

@@ -25,8 +25,6 @@ import uk.co.ribot.easyadapter.annotations.LayoutId;
 import uk.co.ribot.easyadapter.annotations.ViewId;
 
 /**
- * Created by ivan on 14/02/2014.
- * <p/>
  * The extension of ItemViewHolder for the ListView of Person.
  */
 
@@ -73,6 +71,6 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
     }
 
     public interface PersonHolderListener {
-        public void onPersonImageClicked(Person person);
+        void onPersonImageClicked(Person person);
     }
 }

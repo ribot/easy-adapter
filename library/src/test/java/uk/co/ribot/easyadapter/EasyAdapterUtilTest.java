@@ -23,26 +23,29 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import uk.co.ribot.easyadapter.annotations.LayoutId;
+import uk.co.ribot.easyadapter.util.DefaultConfig;
 
 
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = DefaultConfig.EMULATE_SDK)
 public class EasyAdapterUtilTest {
 
     private static final int LAYOUT_ID = 1;
 
     @Test public void testCreateViewHolder() throws Exception {
-        View view = new View(Robolectric.application);
+        View view = new View(RuntimeEnvironment.application);
         ItemViewHolder<?> itemViewHolder = EasyAdapterUtil.createViewHolder(view, ValidItemViewHolder.class);
         Assert.assertNotNull(itemViewHolder);
     }
 
     @Test public void testCreateInvalidViewHolder() throws Exception {
-        View view = new View(Robolectric.application);
+        View view = new View(RuntimeEnvironment.application);
         RuntimeException exception = null;
         try {
             //Should throw a RuntimeException because the constructor is invalid

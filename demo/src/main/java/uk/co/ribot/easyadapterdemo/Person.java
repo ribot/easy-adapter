@@ -59,4 +59,26 @@ public class Person {
     public void setResDrawableId(int resDrawableId) {
         this.resDrawableId = resDrawableId;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (resDrawableId != person.resDrawableId) return false;
+        if (name != null ? !name.equals(person.name) : person.name != null) return false;
+        return !(phoneNumber != null ? !phoneNumber.equals(person.phoneNumber) : person.phoneNumber != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
+        result = 31 * result + resDrawableId;
+        return result;
+    }
 }
