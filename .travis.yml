@@ -1,4 +1,10 @@
 language: android
+env:
+    global:
+        # Turning off caching to avoid caching Issues
+        - cache: false
+        # Initiating clean Gradle output
+        - TERM=dumb
 android:
     components:
         - build-tools-22.0.1
