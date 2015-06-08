@@ -25,12 +25,10 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static uk.co.ribot.easyadapterdemo.util.CustomViewActions.clickOnChild;
 
@@ -67,10 +65,11 @@ public class MainTest extends BaseTestCase<MainActivity> {
                     .atPosition(position)
                     .onChildView(withId(R.id.image_view_person))
                     .perform(click());
-            //Check Toast shows
+            //Check Dialog shows and close it
             onView(withText(getActivity().getString(R.string.my_name_string, listPeople.get(position).getName())))
-                    .inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
+            onView(withText(R.string.ok))
+                    .perform(click());
         }
     }
 
@@ -95,10 +94,11 @@ public class MainTest extends BaseTestCase<MainActivity> {
         for (int position = 0; position < listPeople.size(); position++) {
             onView(withId(R.id.recycler_view))
                     .perform(RecyclerViewActions.actionOnItemAtPosition(position, clickOnChild(R.id.image_view_person)));
-            //Check Toast shows
+            //Check Dialog shows and close it
             onView(withText(getActivity().getString(R.string.my_name_string, listPeople.get(position).getName())))
-                    .inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView()))))
                     .check(matches(isDisplayed()));
+            onView(withText(R.string.ok))
+                    .perform(click());
         }
     }
 
