@@ -14,9 +14,23 @@
  * limitations under the License.
  */
 
-package uk.co.ribot.easyadapter.util;
+package uk.co.ribot.easyadapterdemo.util;
 
-public class DefaultConfig {
-    //The api level that Robolectric will use to run the unit tests
-    public static final int EMULATE_SDK = 21;
+import java.util.Arrays;
+import java.util.List;
+
+import uk.co.ribot.easyadapterdemo.Person;
+import uk.co.ribot.easyadapterdemo.R;
+
+public final class DataUtil {
+
+    public static List<Person> getSomePeople() {
+        Person person1 = createPerson("John Snow");
+        Person person2 = createPerson("Sam Tarly");
+        return Arrays.asList(person1, person2);
+    }
+
+    public static Person createPerson(String name) {
+        return new Person(name, "07888999777", R.drawable.ic_launcher);
+    }
 }
