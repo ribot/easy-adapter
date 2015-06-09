@@ -1,6 +1,8 @@
 language: android
 env:
     global:
+        #Using the new Container-Based Infrastructure
+        - sudo: false
         # Turning off caching to avoid caching Issues
         - cache: false
         # Initiating clean Gradle output
