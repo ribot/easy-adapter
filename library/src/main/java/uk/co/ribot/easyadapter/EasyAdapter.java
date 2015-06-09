@@ -90,7 +90,7 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
      * Use {@link #setItemsWithoutNotifying(List)}()} if you don't want to refresh
      * the {@code AdapterView} at this time.
      *
-     * @param listItems  new List of items to use as the underlying data structure
+     * @param listItems new List of items to use as the underlying data structure
      */
     public void setItems(List<T> listItems) {
         mListItems = listItems;

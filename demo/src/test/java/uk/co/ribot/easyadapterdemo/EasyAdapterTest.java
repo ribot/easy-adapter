@@ -47,8 +47,8 @@ import static uk.co.ribot.easyadapterdemo.util.DataUtil.getSomePeople;
  * This test is in the demo app so it can use the layout resources defined for the PersonViewHolder
  * Ideally it should be in the library module because is testing the EasyAdapter class.
  * However in order to create an EasyAdapter we need a view holder annotated with a
- * valid layout ID. At te moment it's not possible to define a resource layout in the test variant
- * and didn't want to include resources in the library that are only used for testing.
+ * valid layout ID. At the moment it's not possible to define a resource layout in the test variant
+ * and I didn't want to include resources in the library that are only used for testing.
  */
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -82,6 +82,13 @@ public class EasyAdapterTest {
         assertEquals(person2, mEasyAdapter.getItem(1));
     }
 
+    @Test public void testGetItems() throws Exception {
+        List<Person> list = getSomePeople();
+        EasyAdapter<Person> easyAdapter = new EasyAdapter<>(RuntimeEnvironment.application,
+                PersonViewHolder.class, list);
+        assertEquals(list, easyAdapter.getItems());
+    }
+
     @Test public void testSetItems() throws Exception {
         List<Person> list = getSomePeople();
         assertEquals(0, mEasyAdapter.getItems().size());
@@ -96,13 +103,6 @@ public class EasyAdapterTest {
         mEasyAdapter.setItemsWithoutNotifying(list);
         assertEquals(list, mEasyAdapter.getItems());
         verify(mMockDataSetObserver, never()).onChanged();
-    }
-
-    @Test public void testGetItems() throws Exception {
-        List<Person> list = getSomePeople();
-        EasyAdapter<Person> easyAdapter = new EasyAdapter<>(RuntimeEnvironment.application,
-                PersonViewHolder.class, list);
-        assertEquals(list, easyAdapter.getItems());
     }
 
     @Test public void testAddItem() throws Exception {

@@ -152,7 +152,7 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
      * @return true if any data was modified by this operation, false otherwise.
      */
     public boolean addItems(Collection<T> items) {
-        if (items.size() == 0) return false;
+        if (items.isEmpty()) return false;
         int previousSize = getItemCount();
         if (mListItems.addAll(items)) {
             notifyItemRangeInserted(previousSize, items.size());

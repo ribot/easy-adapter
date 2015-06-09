@@ -46,8 +46,8 @@ import static uk.co.ribot.easyadapterdemo.util.DataUtil.getSomePeople;
  * This test is in the demo app so it can use the layout resources defined for the PersonViewHolder
  * Ideally it should be in the library module because is testing the EasyRecylerAdapter class.
  * However in order to create an EasyAdapter we need a view holder annotated with a
- * valid layout ID. At te moment it's not possible to define a resource layout in the test variant
- * and didn't want to include resources in the library that are only used for testing.
+ * valid layout ID. At the moment it's not possible to define a resource layout in the test variant
+ * and I didn't want to include resources in the library that are only used for testing.
  */
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -83,6 +83,15 @@ public class EasyRecyclerAdapterTest {
         assertEquals(person2, mEasyRecyclerAdapter.getItem(1));
     }
 
+    @Test public void testGetItems() throws Exception {
+        List<Person> list = getSomePeople();
+        EasyRecyclerAdapter<Person> easyRecyclerAdapter = new EasyRecyclerAdapter<>(
+                RuntimeEnvironment.application,
+                PersonViewHolder.class,
+                list);
+        assertEquals(list, easyRecyclerAdapter.getItems());
+    }
+
     @Test public void testSetItems() throws Exception {
         List<Person> list = getSomePeople();
         assertEquals(0, mEasyRecyclerAdapter.getItems().size());
@@ -97,15 +106,6 @@ public class EasyRecyclerAdapterTest {
         mEasyRecyclerAdapter.setItemsWithoutNotifying(list);
         assertEquals(list, mEasyRecyclerAdapter.getItems());
         verify(mMockAdapterDataObserver, never()).onChanged();
-    }
-
-    @Test public void testGetItems() throws Exception {
-        List<Person> list = getSomePeople();
-        EasyRecyclerAdapter<Person> easyRecyclerAdapter = new EasyRecyclerAdapter<>(
-                RuntimeEnvironment.application,
-                PersonViewHolder.class,
-                list);
-        assertEquals(list, easyRecyclerAdapter.getItems());
     }
 
     @Test public void testAddItem() throws Exception {
