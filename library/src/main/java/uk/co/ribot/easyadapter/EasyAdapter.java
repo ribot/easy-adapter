@@ -88,7 +88,7 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
      * Set a new list of items into the Adapter and refresh the {@code AdapterView} by calling
      * {@code notifyDataSetChanged()}.
      * Use {@link #setItemsWithoutNotifying(List)}()} if you don't want to refresh
-     * the {@code }AdapterView} at this time.
+     * the {@code AdapterView} at this time.
      *
      * @param listItems  new List of items to use as the underlying data structure
      */
