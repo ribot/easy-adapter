@@ -118,7 +118,6 @@ public class EasyRecyclerAdapter<T> extends BaseEasyRecyclerAdapter<T> {
         return mListItems;
     }
 
-
     /**
      * Add a single item and refresh the {@code RecyclerView} by calling
      * {@code notifyItemInserted()}.
