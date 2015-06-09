@@ -1,23 +1,21 @@
 language: android
 env:
     global:
+        # Using the new Container-Based Infrastructure
+        - sudo: false
         # Turning off caching to avoid caching Issues
         - cache: false
         # Initiating clean Gradle output
         - TERM=dumb
+        # Giving even more memory to Gradle JVM
+        - GRADLE_OPTS="-Xmx2048m -XX:MaxPermSize=1024m"
 android:
     components:
         - build-tools-22.0.1
         - android-22
-        - sys-img-armeabi-v7a-android-22
         - extra-android-m2repository
         - extra-google-m2repository
         - extra-android-support
     licenses:
         - android-sdk-license-5be876d5
-before_script:
-    - echo no | android create avd --force -n test -t android-22 --abi default/armeabi-v7a
-    - emulator -avd test -no-skin -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
-script: ./gradlew clean library:check demo:connectedCheck
+script: ./gradlew clean check

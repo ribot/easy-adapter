@@ -18,6 +18,7 @@ package uk.co.ribot.easyadapter;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -80,13 +81,16 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
      */
     public EasyAdapter(Context context, Class<? extends ItemViewHolder> itemViewHolderClass, Object listener) {
         super(context, itemViewHolderClass, listener);
-        mListItems = new ArrayList<T>();
+        mListItems = new ArrayList<>();
     }
 
     /**
-     * Sets a new list of items into the Adapter
+     * Set a new list of items into the Adapter and refresh the {@code AdapterView} by calling
+     * {@code notifyDataSetChanged()}.
+     * Use {@link #setItemsWithoutNotifying(List)}()} if you don't want to refresh
+     * the {@code AdapterView} at this time.
      *
-     * @param listItems new list of items
+     * @param listItems new List of items to use as the underlying data structure
      */
     public void setItems(List<T> listItems) {
         mListItems = listItems;
@@ -94,7 +98,27 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
     }
 
     /**
-     * Adds a single item to the Adapter
+     * Set a new list of items into the Adapter.
+     *
+     * @param listItems new List of items to use as the underlying data structure
+     */
+    public void setItemsWithoutNotifying(List<T> listItems) {
+        mListItems = listItems;
+    }
+
+    /**
+     * Retrieve the {@code List} of items. Changes to this {@code List} directly affect the data displayed on
+     * the {@code AdapterView}.
+     *
+     * @return the underlying data {@code List}
+     */
+    public List<T> getItems() {
+        return mListItems;
+    }
+
+    /**
+     * Add a single item and refresh the {@code AdapterView} by calling
+     * {@code notifyDataSetChanged()}.
      *
      * @param item item to add
      */
@@ -104,13 +128,48 @@ public class EasyAdapter<T> extends BaseEasyAdapter<T> {
     }
 
     /**
-     * Appends a list of items to the ones already in the Adapter
+     * Remove a single item and refresh the {@code AdapterView} by calling
+     * {@code notifyDataSetChanged()}.
      *
-     * @param listItems list of items to append
+     * @param item item to add
+     * @return true if any data was modified by this operation, false otherwise.
      */
-    public void addItems(List<T> listItems) {
-        mListItems.addAll(listItems);
-        notifyDataSetChanged();
+    public boolean removeItem(T item) {
+        if (mListItems.remove(item)) {
+            notifyDataSetChanged();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Append a collection of items and refresh the {@code AdapterView} by calling
+     * {@code notifyDataSetChanged()}.
+     *
+     * @param items collection of items to append
+     * @return true if any data was modified by this operation, false otherwise.
+     */
+    public boolean addItems(Collection<? extends T> items) {
+        if (mListItems.addAll(items)) {
+            notifyDataSetChanged();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a collection of items and refresh the {@code AdapterView} by calling
+     * {@code notifyDataSetChanged()}.
+     *
+     * @param items {@code Collection} of items to remove
+     * @return true if any data was modified by this operation, false otherwise.
+     */
+    public boolean removeItems(Collection<? extends T> items) {
+        if (mListItems.removeAll(items)) {
+            notifyDataSetChanged();
+            return true;
+        }
+        return false;
     }
 
     @Override
