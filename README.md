@@ -149,6 +149,15 @@ public class PersonViewHolder extends ItemViewHolder<Person> {
     }
 }
 ```
+Proguard 
+--------------
+If you are using Proguard you need to add the following rules to `proguard-rules.pro`:
+```
+-keepattributes *Annotation*
+-keepclassmembers class * extends uk.co.ribot.easyadapter.ItemViewHolder {
+    public <init>(...);
+ }
+```
 
 Build
 --------------
