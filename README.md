@@ -16,7 +16,7 @@ Setup
 #### 1. Gradle
 ```groovy
 dependencies {
-    compile 'uk.co.ribot:easyadapter:1.4.0@aar'
+    compile 'uk.co.ribot:easyadapter:1.5.0@aar'
 }
 ```
 #### 2. Maven
@@ -24,13 +24,13 @@ dependencies {
 <dependency>
     <groupId>uk.co.ribot</groupId>
     <artifactId>easyadapter</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <type>aar</type>
 </dependency>
 ```
 #### 3. Manual
 
-Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.4.0.jar)__
+Download the __[latest Jar](https://raw.github.com/ribot/EasyAdapter/master/downloads/easyadapter-1.5.0.jar)__
 
 Sample
 --------------
