@@ -4,35 +4,36 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version = "1.5.0"
-group = "uk.co.ribot"
+version = '1.5.1'
+group = 'uk.co.ribot'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    compile "com.android.support:recyclerview-v7:22.2.0"
+    Map<String, String> dependencies = rootProject.ext.dependencies
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.hamcrest:hamcrest-core:1.1'
-    testCompile 'org.hamcrest:hamcrest-library:1.1'
-    testCompile 'org.hamcrest:hamcrest-integration:1.1'
-    testCompile('org.robolectric:robolectric:3.0-rc3') {
+    compile dependencies.recyclerView
+
+    testCompile dependencies.jUnit
+    testCompile dependencies.hamcrestCore
+    testCompile dependencies.hamcrestLibrary
+    testCompile dependencies.hamcrestIntegration
+    testCompile(dependencies.robolectric) {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
         minSdkVersion 7
-        targetSdkVersion 22
     }
 }
 
 task androidJavadocs(type: Javadoc) {
-    options.links("http://docs.oracle.com/javase/7/docs/api/");
+    options.links('http://docs.oracle.com/javase/7/docs/api/');
     source = android.sourceSets.main.java.sourceFiles
 }
 
@@ -58,7 +59,7 @@ configurations {
 }
 
 signing {
-    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    required { has('release') && gradle.taskGraph.hasTask('uploadArchives') }
     sign configurations.archives
 }
 
@@ -75,10 +76,10 @@ android.libraryVariants.all { variant ->
 }
 
 //Publishing config for Sonatype central
-def sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/";
-if (project.getProperties().get('repo', null) == "snapshots") {
-    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/";
-    version += "-SNAPSHOT"
+def sonatypeRepositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/';
+if (project.getProperties().get('repo', null) == 'snapshots') {
+    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/';
+    version += '-SNAPSHOT'
 }
 def sonatypeUsername = ""
 def sonatypePassword = ""
@@ -86,7 +87,7 @@ try {
     sonatypeUsername = sonatypeUsernameLocal
     sonatypePassword = sonatypePasswordLocal
 } catch (MissingPropertyException) {
-    println "Note: Sonatype credentials not found in your local properties"
+    println 'Note: Sonatype credentials not found in your local properties'
 }
 
 uploadArchives {
