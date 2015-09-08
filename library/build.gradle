@@ -1,11 +1,5 @@
-import com.android.builder.core.BuilderConstants
-
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-version = '1.5.1'
-group = 'uk.co.ribot'
+apply from: 'publish.gradle'
 
 dependencies {
     Map<String, String> dependencies = rootProject.ext.dependencies
@@ -29,104 +23,5 @@ android {
     defaultConfig {
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         minSdkVersion 7
-    }
-}
-
-task androidJavadocs(type: Javadoc) {
-    options.links('http://docs.oracle.com/javase/7/docs/api/');
-    source = android.sourceSets.main.java.sourceFiles
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.sourceFiles
-}
-
-artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
-}
-
-configurations {
-    archives {
-        extendsFrom configurations.default
-    }
-}
-
-signing {
-    required { has('release') && gradle.taskGraph.hasTask('uploadArchives') }
-    sign configurations.archives
-}
-
-//Generates JAR file when building (In addition to
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-    if (name.equals(BuilderConstants.DEBUG)) {
-        return;
-    }
-    def task = project.tasks.create "jar${name.capitalize()}", Jar
-    task.dependsOn variant.javaCompile
-    task.from variant.javaCompile.destinationDir
-    artifacts.add('archives', task);
-}
-
-//Publishing config for Sonatype central
-def sonatypeRepositoryUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/';
-if (project.getProperties().get('repo', null) == 'snapshots') {
-    sonatypeRepositoryUrl = 'https://oss.sonatype.org/content/repositories/snapshots/';
-    version += '-SNAPSHOT'
-}
-def sonatypeUsername = ""
-def sonatypePassword = ""
-try {
-    sonatypeUsername = sonatypeUsernameLocal
-    sonatypePassword = sonatypePasswordLocal
-} catch (MissingPropertyException) {
-    println 'Note: Sonatype credentials not found in your local properties'
-}
-
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        repository(url: sonatypeRepositoryUrl) {
-            authentication(userName: sonatypeUsername, password: sonatypePassword)
-        }
-
-        pom.project {
-            name 'Android Easy Adapter'
-            artifactId 'easyadapter'
-            packaging 'aar'
-            description 'Library that facilitates the use of AdapterViews and RecyclerViews on Android'
-            url 'https://github.com/ribot/easy-adapter'
-
-            scm {
-                url 'git@github.com:ribot/easy-adapter.git'
-                connection 'scm:git:git@github.com:ribot/easy-adapter.git'
-                developerConnection 'scm:git:git@github.com:ribot/easy-adapter.git'
-            }
-
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'ivancarballo'
-                    name 'Ivan Carballo'
-                    email 'ivan@ribot.co.uk'
-                }
-            }
-        }
     }
 }

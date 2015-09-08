@@ -1,0 +1,91 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = 'uk.co.ribot'
+archivesBaseName = "easyadapter"
+version = '1.5.1-SNAPSHOT'
+
+task androidJavadocs(type: Javadoc) {
+    options.links('http://docs.oracle.com/javase/7/docs/api/');
+    source = android.sourceSets.main.java.sourceFiles
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { has('release') && gradle.taskGraph.hasTask('uploadArchives') }
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            def sonatypeUsername = ""
+            def sonatypePassword = ""
+            try {
+                sonatypeUsername = sonatypeUsernameLocal
+                sonatypePassword = sonatypePasswordLocal
+            } catch (MissingPropertyException e) {
+                println "Note: OOS Sonatype credentials not found in your local properties"
+            }
+
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name 'Android Easy Adapter'
+                packaging 'aar'
+                description 'Library that facilitates the use of AdapterViews and RecyclerViews on Android'
+                url 'https://github.com/ribot/easy-adapter'
+
+                scm {
+                    url 'git@github.com:ribot/easy-adapter.git'
+                    connection 'scm:git:git@github.com:ribot/easy-adapter.git'
+                    developerConnection 'scm:git:git@github.com:ribot/easy-adapter.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'ivancarballo'
+                        name 'Ivan Carballo'
+                        email 'ivan@ribot.co.uk'
+                    }
+                }
+            }
+        }
+    }
+}
