@@ -10,10 +10,7 @@ dependencies {
     testCompile dependencies.hamcrestCore
     testCompile dependencies.hamcrestLibrary
     testCompile dependencies.hamcrestIntegration
-    testCompile(dependencies.robolectric) {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile dependencies.robolectric
 }
 
 android {

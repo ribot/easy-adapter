@@ -8,9 +8,9 @@ android {
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         minSdkVersion 14
         versionCode 4
-        versionName "1.3"
-        applicationId "uk.co.ribot.easyadapterdemo"
-        testInstrumentationRunner "uk.co.ribot.easyadapterdemo.util.UnlockDeviceTestRunner"
+        versionName '1.3'
+        applicationId 'uk.co.ribot.easyadapterdemo'
+        testInstrumentationRunner 'uk.co.ribot.easyadapterdemo.util.UnlockDeviceTestRunner'
     }
 
     //Needed because of espresso and robolectric
@@ -26,7 +26,7 @@ android {
 dependencies {
     Map<String, String> dependencies = rootProject.ext.dependencies
 
-    compile project(":library")
+    compile project(':library')
     compile dependencies.recyclerView
     compile dependencies.appCompat
     compile dependencies.supportAnnotations
@@ -46,8 +46,5 @@ dependencies {
     testCompile dependencies.hamcrestCore
     testCompile dependencies.hamcrestLibrary
     testCompile dependencies.hamcrestIntegration
-    testCompile(dependencies.robolectric) {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile dependencies.robolectric
 }
