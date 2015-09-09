@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
 
     defaultConfig {
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
         minSdkVersion 14
-        targetSdkVersion 22
-        versionCode 3
-        versionName "1.2"
-        applicationId "uk.co.ribot.easyadapterdemo"
-        testInstrumentationRunner "uk.co.ribot.easyadapterdemo.util.UnlockDeviceTestRunner"
+        versionCode 4
+        versionName '1.3'
+        applicationId 'uk.co.ribot.easyadapterdemo'
+        testInstrumentationRunner 'uk.co.ribot.easyadapterdemo.util.UnlockDeviceTestRunner'
     }
 
     //Needed because of espresso and robolectric
@@ -24,27 +24,27 @@ android {
 }
 
 dependencies {
-    compile project(":library")
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    Map<String, String> dependencies = rootProject.ext.dependencies
 
-    androidTestCompile 'com.android.support:support-annotations:22.2.0'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
-    androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.android.support.test:rules:0.3'
-    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+    compile project(':library')
+    compile dependencies.recyclerView
+    compile dependencies.appCompat
+    compile dependencies.supportAnnotations
+
+    androidTestCompile dependencies.supportAnnotations
+    androidTestCompile dependencies.espressoCore
+    androidTestCompile dependencies.testRunner
+    androidTestCompile dependencies.testRules
+    androidTestCompile(dependencies.espressoContrib) {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
 
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.hamcrest:hamcrest-core:1.1'
-    testCompile 'org.hamcrest:hamcrest-library:1.1'
-    testCompile 'org.hamcrest:hamcrest-integration:1.1'
-    testCompile('org.robolectric:robolectric:3.0-rc3') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile dependencies.mockitoCore
+    testCompile dependencies.jUnit
+    testCompile dependencies.hamcrestCore
+    testCompile dependencies.hamcrestLibrary
+    testCompile dependencies.hamcrestIntegration
+    testCompile dependencies.robolectric
 }
