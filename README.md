@@ -1,3 +1,8 @@
+Deprecated
+===========
+
+Due to the growing use of the [RecyclerView](http://developer.android.com/reference/android/support/v7/widget/RecyclerView.html) and the [RecyclerView.Adapter](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.Adapter.html) provided adapter class, Easy-Adapter is now deprecated. Whilst the current version still remains usable, there will no longer be any new development taking place.
+
 EasyAdapter For Android
 ===========
 
